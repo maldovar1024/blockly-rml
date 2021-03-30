@@ -1,4 +1,5 @@
 const CracoAntDesignPlugin = require('craco-antd');
+const rawLoader = require('craco-raw-loader');
 
 module.exports = {
   plugins: [
@@ -10,5 +11,6 @@ module.exports = {
         },
       },
     },
+    { plugin: rawLoader, options: { test: /\.xml$/ } },
   ],
 };

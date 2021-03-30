@@ -40,7 +40,7 @@
     "@typescript-eslint/explicit-module-boundary-types": ["off"],
     "@typescript-eslint/no-empty-function": ["off"],
     "react/prop-types": ["off"],
-    "no-console": ["warning", { "allow": ["warning", "error"] }]
+    "no-console": ["warn", { "allow": ["warn", "error"] }]
   },
   "reportUnusedDisableDirectives": true
 }

@@ -1,5 +1,6 @@
 import { Col, Row } from 'antd';
 import { FC } from 'react';
+import './app.less';
 import SourceManager from './source-manager';
 
 const App: FC = () => {

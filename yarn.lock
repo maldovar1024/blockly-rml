@@ -3719,6 +3719,13 @@ craco-less@1.17.0:
     less "^3.11.1"
     less-loader "^6.1.0"
 
+craco-raw-loader@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/craco-raw-loader/download/craco-raw-loader-1.0.1.tgz#db04660a24419b09988a5b2651e627a9c3a35d2a"
+  integrity sha1-2wRmCiRBmwmYilsmUeYnqcOjXSo=
+  dependencies:
+    raw-loader "^1.0.0"
+
 create-ecdh@^4.0.0:
   version "4.0.4"
   resolved "https://registry.npm.taobao.org/create-ecdh/download/create-ecdh-4.0.4.tgz?cache=0&sync_timestamp=1596557810113&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcreate-ecdh%2Fdownload%2Fcreate-ecdh-4.0.4.tgz#d6e7f4bffa66736085a0762fd3a632684dabcc4e"
@@ -9257,6 +9264,14 @@ raw-body@2.4.0:
     http-errors "1.7.2"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+raw-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/raw-loader/download/raw-loader-1.0.0.tgz#3f9889e73dadbda9a424bce79809b4133ad46405"
+  integrity sha1-P5iJ5z2tvamkJLznmAm0EzrUZAU=
+  dependencies:
+    loader-utils "^1.1.0"
+    schema-utils "^1.0.0"
 
 rc-align@^4.0.0:
   version "4.0.9"

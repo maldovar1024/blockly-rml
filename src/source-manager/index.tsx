@@ -1,7 +1,7 @@
 import { Tabs, TabsProps, Upload } from 'antd';
 import { FC, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../stores';
-import { addSource, removeSource } from '../stores/source';
+import { useAppDispatch, useAppSelector } from 'src/stores';
+import { addSource, removeSource } from 'src/stores/source';
 
 const { TabPane } = Tabs;
 

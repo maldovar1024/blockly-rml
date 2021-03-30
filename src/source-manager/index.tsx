@@ -2,6 +2,7 @@ import { Tabs, TabsProps, Upload } from 'antd';
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/stores';
 import { addSource, removeSource } from 'src/stores/source';
+import { CSVViewer } from './source-viewer';
 
 const { TabPane } = Tabs;
 
@@ -53,7 +54,7 @@ const SourceManager: FC = () => {
         ? '点击加号导入文件'
         : files.map(file => (
             <TabPane key={file.filename} tab={file.filename}>
-              {file.structure.toString()}
+              <CSVViewer structure={file.structure} />
             </TabPane>
           ))}
     </Tabs>

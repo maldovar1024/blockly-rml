@@ -22,8 +22,9 @@ const source = createSlice({
     addSource(state, action: PayloadAction<SourceRecord>) {
       state.push(action.payload);
     },
-    removeSource(state, action: PayloadAction<number>) {
-      state.splice(action.payload, 1);
+    removeSource(state, action: PayloadAction<string>) {
+      const idx = state.findIndex(record => record.filename === action.payload);
+      state.splice(idx, 1);
     },
   },
 });

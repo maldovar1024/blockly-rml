@@ -1,9 +1,11 @@
-import { Tabs, Upload } from 'antd';
+import { Tabs, TabsProps, Upload } from 'antd';
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../stores';
-import { addSource } from '../stores/source';
+import { addSource, removeSource } from '../stores/source';
 
 const { TabPane } = Tabs;
+
+type TabEditEvent = TabsProps['onEdit'];
 
 const SourceManager: FC = () => {
   const [activeKey, setActiveKey] = useState<string | undefined>(undefined);
@@ -22,6 +24,17 @@ const SourceManager: FC = () => {
     return false;
   };
 
+  const onEdit: TabEditEvent = (target, action) => {
+    if (action === 'add') {
+      return;
+    }
+    if (typeof target !== 'string') {
+      console.warn(target);
+      return;
+    }
+    dispatch(removeSource(target));
+  };
+
   const addFile = (
     <Upload accept=".csv" beforeUpload={handleUpload} showUploadList={false}>
       +
@@ -34,6 +47,7 @@ const SourceManager: FC = () => {
       type="editable-card"
       activeKey={activeKey}
       onChange={setActiveKey}
+      onEdit={onEdit}
     >
       {files.length === 0
         ? '点击加号导入文件'

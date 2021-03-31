@@ -95,7 +95,7 @@
       },
       {
         "type": "input_statement",
-        "name": "class",
+        "name": "classes",
         "check": "rr_class"
       }
     ],
@@ -120,17 +120,17 @@
   },
   {
     "type": "predicate_object_maps",
-    "message0": "Predicate Object %1 Object Maps %2",
+    "message0": "Predicate Maps %1 Object Maps %2",
     "args0": [
       {
         "type": "input_statement",
         "name": "predicate_maps",
-        "check": "predicate_maps"
+        "check": "predicate_map"
       },
       {
         "type": "input_statement",
         "name": "object_maps",
-        "check": "object_maps"
+        "check": "object_map"
       }
     ],
     "previousStatement": "predicate_object_maps",
@@ -139,7 +139,7 @@
     "tooltip": "定义三元组映射的谓语-宾语映射"
   },
   {
-    "type": "predicate_maps",
+    "type": "predicate_map",
     "message0": "%1 %2",
     "args0": [
       {
@@ -156,13 +156,13 @@
         "text": " "
       }
     ],
-    "previousStatement": "predicate_maps",
-    "nextStatement": "predicate_maps",
+    "previousStatement": "predicate_map",
+    "nextStatement": "predicate_map",
     "colour": 150,
     "tooltip": "定义三元组映射的谓语映射"
   },
   {
-    "type": "object_maps",
+    "type": "object_map",
     "message0": "%1 %2",
     "args0": [
       {
@@ -179,8 +179,8 @@
         "text": ""
       }
     ],
-    "previousStatement": "object_maps",
-    "nextStatement": "object_maps",
+    "previousStatement": "object_map",
+    "nextStatement": "object_map",
     "colour": 180,
     "tooltip": "定义三元组映射的宾语映射"
   }

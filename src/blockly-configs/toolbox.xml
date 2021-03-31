@@ -17,11 +17,11 @@
     <field name="class"></field>
   </block>
   <block type="predicate_object_maps"></block>
-  <block type="predicate_maps">
+  <block type="predicate_map">
     <field name="type">constant</field>
     <field name="value"></field>
   </block>
-  <block type="object_maps">
+  <block type="object_map">
     <field name="type">constant</field>
     <field name="value"></field>
   </block>

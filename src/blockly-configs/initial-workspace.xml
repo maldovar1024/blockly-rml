@@ -29,13 +29,13 @@
         <field name="map_name"></field>
         <statement name="source">
           <block type="logical_source" id="r6tA[5J`,]1X#Xm],Zp7">
-            <field name="filename">file_name</field>
+            <field name="filename"></field>
           </block>
         </statement>
         <statement name="subject_map">
           <block type="subject_map" id="?Mz6bwM[$t).pJ/l6uI^">
             <field name="template"></field>
-            <statement name="class">
+            <statement name="classes">
               <block type="rr_class" id="R~aP1(@m6Ez:A,c]4A=-">
                 <field name="class"></field>
               </block>
@@ -45,13 +45,13 @@
         <statement name="predicate_object_maps">
           <block type="predicate_object_maps" id="`D@kkTNHdIVRoc9/{f;I">
             <statement name="predicate_maps">
-              <block type="predicate_maps" id="o=Np8Ce)t$:Z85l36;$+">
+              <block type="predicate_map" id="o=Np8Ce)t$:Z85l36;$+">
                 <field name="type">constant</field>
                 <field name="value"></field>
               </block>
             </statement>
             <statement name="object_maps">
-              <block type="object_maps" id="k[Ad1?u7zKMp.~|2D7oW">
+              <block type="object_map" id="k[Ad1?u7zKMp.~|2D7oW">
                 <field name="type">constant</field>
                 <field name="value"></field>
               </block>

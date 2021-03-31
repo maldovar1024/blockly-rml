@@ -1,0 +1,28 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+  <block type="triple_maps"></block>
+  <block type="prefix">
+    <field name="prefix"></field>
+    <field name="value"></field>
+  </block>
+  <block type="triple_map">
+    <field name="map_name"></field>
+  </block>
+  <block type="logical_source">
+    <field name="filename"></field>
+  </block>
+  <block type="subject_map">
+    <field name="template"></field>
+  </block>
+  <block type="rr_class">
+    <field name="class"></field>
+  </block>
+  <block type="predicate_object_maps"></block>
+  <block type="predicate_maps">
+    <field name="type">constant</field>
+    <field name="value"></field>
+  </block>
+  <block type="object_maps">
+    <field name="type">constant</field>
+    <field name="value"></field>
+  </block>
+</xml>

@@ -1,11 +1,24 @@
 import { Col, Row } from 'antd';
-import { FC } from 'react';
+import { FC, useCallback, useState } from 'react';
 import './app.less';
-import { blocklyOptions, initialWorkspace, rmlBlocks } from './blockly-configs';
-import BlocklyContainer from './blockly-editor';
+import {
+  blocklyOptions,
+  initialWorkspace,
+  rmlBlocks,
+  RMLGenerator,
+} from './blockly-configs';
+import BlocklyContainer, { WorkspaceChangeCallback } from './blockly-editor';
 import SourceManager from './source-manager';
 
+const rmlGenerator = new RMLGenerator();
+
 const App: FC = () => {
+  const [code, setCode] = useState('');
+
+  const onWorkspaceChange = useCallback<WorkspaceChangeCallback>(evt => {
+    setCode(rmlGenerator.workspaceToCode(evt.getEventWorkspace_()));
+  }, []);
+
   return (
     <Row className="app">
       <Col span="4">
@@ -16,9 +29,12 @@ const App: FC = () => {
           blocklyOptions={blocklyOptions}
           customBlocks={rmlBlocks}
           initialWorkspace={initialWorkspace}
+          onWorkspaceChange={onWorkspaceChange}
         />
       </Col>
-      <Col span="6">3</Col>
+      <Col span="6">
+        <pre className="code">{code}</pre>
+      </Col>
     </Row>
   );
 };

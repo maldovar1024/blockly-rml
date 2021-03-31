@@ -16,6 +16,7 @@ export interface BlocklyContainerProps {
   customBlocks?: Record<string, unknown>[];
   /** 自定义右键菜单 */
   customMenuOptions?: CustomMenuOptions;
+  initialWorkspace?: string;
   registryItems?: RegistryType[];
   /** 工作区发生改变时的回调函数 */
   onWorkspaceChange?: WorkspaceChangeCallback;
@@ -40,6 +41,7 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     const {
       blocklyOptions,
       customBlocks,
+      initialWorkspace,
       onWorkspaceChange,
       registryItems,
     } = this.props;
@@ -51,6 +53,12 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     }
 
     this.mainWorkspace = Blockly.inject(blocklyDiv, blocklyOptions);
+    if (initialWorkspace) {
+      Blockly.Xml.domToWorkspace(
+        Blockly.Xml.textToDom(initialWorkspace),
+        this.mainWorkspace
+      );
+    }
     if (onWorkspaceChange) {
       this.mainWorkspace.addChangeListener(onWorkspaceChange);
     }

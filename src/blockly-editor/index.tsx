@@ -64,6 +64,22 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     }
   }
 
+  exportBlocks() {
+    const { Xml } = Blockly;
+    const xml = Xml.workspaceToDom(this.mainWorkspace);
+    return Xml.domToPrettyText(xml);
+  }
+
+  importBlocks(xmlText: string): Error | undefined {
+    const { Xml } = Blockly;
+    try {
+      const xml = Xml.textToDom(xmlText);
+      Xml.clearWorkspaceAndLoadFromXml(xml, this.mainWorkspace);
+    } catch (/*Error*/ error) {
+      return error;
+    }
+  }
+
   private registerCustomMenuOptions() {
     const { customMenuOptions } = this.props;
     if (!customMenuOptions) {

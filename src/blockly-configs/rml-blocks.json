@@ -39,26 +39,32 @@
   },
   {
     "type": "triple_map",
-    "message0": "<# %1 > %2 Logical Source %3 Subject Map %4 Predicate Object Maps %5",
+    "message0": "<# %1 >",
     "args0": [
       {
         "type": "field_input",
         "name": "map_name",
         "text": ""
-      },
-      {
-        "type": "input_dummy"
-      },
+      }
+    ],
+    "message1": "Logical Source %1",
+    "args1": [
       {
         "type": "input_value",
         "name": "source",
         "check": "logical_source"
-      },
+      }
+    ],
+    "message2": "Subject Map %1",
+    "args2": [
       {
         "type": "input_value",
         "name": "subject_map",
         "check": "subject_map"
-      },
+      }
+    ],
+    "message3": "Predicate Object Maps %1",
+    "args3": [
       {
         "type": "input_statement",
         "name": "predicate_object_maps",

@@ -50,12 +50,12 @@
         "type": "input_dummy"
       },
       {
-        "type": "input_statement",
+        "type": "input_value",
         "name": "source",
         "check": "logical_source"
       },
       {
-        "type": "input_statement",
+        "type": "input_value",
         "name": "subject_map",
         "check": "subject_map"
       },
@@ -80,7 +80,7 @@
         "text": ""
       }
     ],
-    "previousStatement": null,
+    "output": "logical_source",
     "colour": 30,
     "tooltip": "定义三元组映射的逻辑源"
   },
@@ -99,7 +99,7 @@
         "check": "rr_class"
       }
     ],
-    "previousStatement": null,
+    "output": "subject_map",
     "colour": 60,
     "tooltip": "定义三元组映射的主语映射"
   },

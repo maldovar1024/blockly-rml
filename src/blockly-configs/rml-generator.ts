@@ -1,5 +1,9 @@
 import { Block, BlockSvg, Generator } from 'blockly';
 
+interface ExpressionGenerator {
+  (block: BlockSvg): [string | number, number];
+}
+
 interface StatementGenerator {
   (block: BlockSvg): string;
 }
@@ -13,10 +17,20 @@ class RMLGenerator extends Generator {
     super('RML');
   }
 
+  /** 表达式的优先级 */
+  private static PRECEDENCE = 0;
   /** 实际使用的缩进 */
   private readonly indent = '  ';
   /** 清除默认的缩进 */
   readonly INDENT = '';
+
+  valueToCode(block: Block, name: string): string {
+    return super.valueToCode(block, name, RMLGenerator.PRECEDENCE);
+  }
+
+  private expression(code: string): ReturnType<ExpressionGenerator> {
+    return [code, RMLGenerator.PRECEDENCE];
+  }
 
   /** 生成整个代码文件 */
   triple_maps: StatementGenerator = block => {
@@ -35,8 +49,8 @@ class RMLGenerator extends Generator {
   /** 生成一个三元组映射 */
   triple_map: StatementGenerator = block => {
     const name = block.getFieldValue('map_name');
-    const source = this.statementToCode(block, 'source');
-    const subjectMap = this.statementToCode(block, 'subject_map');
+    const source = this.valueToCode(block, 'source');
+    const subjectMap = this.valueToCode(block, 'subject_map');
     const predicateObjectMaps = this.statementToCode(
       block,
       'predicate_object_maps'
@@ -49,26 +63,26 @@ class RMLGenerator extends Generator {
   };
 
   /** 生成逻辑源 */
-  logical_source: StatementGenerator = block => {
+  logical_source: ExpressionGenerator = block => {
     const filename = block.getFieldValue('filename');
-    return (
+    const code =
       `rml:logicalSource [\n` +
       `  rml:source "${filename}";\n` +
       `  rml:referenceFormulation ql:CSV\n` +
-      `]`
-    );
+      `]`;
+    return this.expression(code);
   };
 
   /** 生成一个主语映射 */
-  subject_map: StatementGenerator = block => {
+  subject_map: ExpressionGenerator = block => {
     const template = block.getFieldValue('template');
     const rr_class = this.statementToCode(block, 'classes');
-    return (
+    const code =
       `rr:subjectMap [\n` +
       `  rr:template "${template}";\n` +
       `  ${rr_class}\n` +
-      `]`
-    );
+      `]`;
+    return [code, RMLGenerator.PRECEDENCE];
   };
 
   /** 生成主语的类型 */

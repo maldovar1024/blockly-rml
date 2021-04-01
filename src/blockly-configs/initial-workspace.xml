@@ -27,12 +27,12 @@
     <statement name="triple_maps">
       <block type="triple_map" id="2ma~C4tD)M9GK$v{zkC(">
         <field name="map_name"></field>
-        <statement name="source">
+        <value name="source">
           <block type="logical_source" id="r6tA[5J`,]1X#Xm],Zp7">
             <field name="filename"></field>
           </block>
-        </statement>
-        <statement name="subject_map">
+        </value>
+        <value name="subject_map">
           <block type="subject_map" id="?Mz6bwM[$t).pJ/l6uI^">
             <field name="template"></field>
             <statement name="classes">
@@ -41,7 +41,7 @@
               </block>
             </statement>
           </block>
-        </statement>
+        </value>
         <statement name="predicate_object_maps">
           <block type="predicate_object_maps" id="`D@kkTNHdIVRoc9/{f;I">
             <statement name="predicate_maps">

@@ -32,6 +32,10 @@ class RMLGenerator extends Generator {
     return [code, RMLGenerator.PRECEDENCE];
   }
 
+  private indentLines(text: string): string {
+    return this.prefixLines(text, this.indent);
+  }
+
   /** 生成整个代码文件 */
   triple_maps: StatementGenerator = block => {
     const prefixes = this.statementToCode(block, 'prefixes');
@@ -55,9 +59,8 @@ class RMLGenerator extends Generator {
       block,
       'predicate_object_maps'
     );
-    const content = this.prefixLines(
-      `${source};\n${subjectMap};\n${predicateObjectMaps}.`,
-      this.indent
+    const content = this.indentLines(
+      `${source};\n${subjectMap};\n${predicateObjectMaps}.`
     );
     return `<#${name}>\n${content}`;
   };
@@ -76,11 +79,11 @@ class RMLGenerator extends Generator {
   /** 生成一个主语映射 */
   subject_map: ExpressionGenerator = block => {
     const template = block.getFieldValue('template');
-    const rr_class = this.statementToCode(block, 'classes');
+    const rr_class = this.indentLines(this.statementToCode(block, 'classes'));
     const code =
       `rr:subjectMap [\n` +
       `  rr:template "${template}";\n` +
-      `  ${rr_class}\n` +
+      `${rr_class}\n` +
       `]`;
     return [code, RMLGenerator.PRECEDENCE];
   };
@@ -95,10 +98,7 @@ class RMLGenerator extends Generator {
   predicate_object_maps: StatementGenerator = block => {
     const predicate_maps = this.statementToCode(block, 'predicate_maps');
     const object_maps = this.statementToCode(block, 'object_maps');
-    const content = this.prefixLines(
-      `${predicate_maps};\n${object_maps}\n`,
-      this.indent
-    );
+    const content = this.indentLines(`${predicate_maps};\n${object_maps}\n`);
     return `rr:predicateObjectMap [\n${content}]`;
   };
 
@@ -122,6 +122,13 @@ class RMLGenerator extends Generator {
     return `rr:objectMap [\n  rml:reference "${value}"\n]`;
   };
 
+  private static delimiterMap: Record<string, string | undefined> = {
+    prefix: '',
+    triple_map: '\n\n',
+  };
+
+  private static defaultDelimiter = ';\n';
+
   scrub_(block: Block, code: string, opt_thisOnly?: boolean) {
     const nextBlock = block.nextConnection?.targetBlock();
     if (!nextBlock || opt_thisOnly) {
@@ -129,22 +136,8 @@ class RMLGenerator extends Generator {
     }
 
     const nextCode = this.blockToCode(nextBlock);
-    const { type } = block;
-    let delimiter: string;
-    switch (type) {
-      case 'prefix':
-        delimiter = '';
-        break;
-      case 'triple_map':
-        delimiter = '\n\n';
-        break;
-      case 'rr_class':
-        delimiter = ';\n  ';
-        break;
-      default:
-        delimiter = ':\n';
-        break;
-    }
+    const delimiter =
+      RMLGenerator.delimiterMap[block.type] ?? RMLGenerator.defaultDelimiter;
     return code + delimiter + nextCode;
   }
 }

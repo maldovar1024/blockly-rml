@@ -3,6 +3,7 @@ import * as Blockly from 'blockly';
 import { Component, createRef, CSSProperties } from 'react';
 import type {
   CustomMenuOptions,
+  GeneralMutatorType,
   RegistryType,
   WorkspaceChangeCallback,
 } from './types';
@@ -16,6 +17,7 @@ export interface BlocklyContainerProps {
   customMenuOptions?: CustomMenuOptions;
   initialWorkspace?: string;
   registryItems?: RegistryType[];
+  mutators?: GeneralMutatorType[];
   /** 工作区发生改变时的回调函数 */
   onWorkspaceChange?: WorkspaceChangeCallback;
   className?: string;
@@ -40,12 +42,16 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
       blocklyOptions,
       customBlocks,
       initialWorkspace,
+      mutators,
       onWorkspaceChange,
       registryItems,
     } = this.props;
 
     this.registerCustomMenuOptions();
     registryItems?.forEach(item => Blockly.registry.register(...item));
+    mutators?.forEach(mutator =>
+      Blockly.Extensions.registerMutator(...mutator)
+    );
     if (customBlocks) {
       Blockly.defineBlocksWithJsonArray(customBlocks);
     }

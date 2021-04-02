@@ -7,7 +7,8 @@ import {
   rmlBlocks,
   RMLGenerator,
 } from './blockly-configs';
-import BlocklyContainer, { WorkspaceChangeCallback } from './blockly-editor';
+import BlocklyContainer from './blockly-editor';
+import type { WorkspaceChangeCallback } from './blockly-editor/types';
 import SourceManager from './source-manager';
 
 const rmlGenerator = new RMLGenerator();

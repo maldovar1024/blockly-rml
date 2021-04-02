@@ -1,13 +1,11 @@
-import type { BlocklyOptions, Events, WorkspaceSvg } from 'blockly';
+import type { BlocklyOptions, WorkspaceSvg } from 'blockly';
 import * as Blockly from 'blockly';
 import { Component, createRef, CSSProperties } from 'react';
-import type { CustomMenuOptions } from './context-menu-types';
-
-export interface WorkspaceChangeCallback {
-  (evt: Events.Abstract): void;
-}
-
-export type RegistryType = Parameters<typeof Blockly.registry.register>;
+import type {
+  CustomMenuOptions,
+  RegistryType,
+  WorkspaceChangeCallback,
+} from './types';
 
 export interface BlocklyContainerProps {
   /** 注入 Blockly 时的配置，只在初始化时生效 */

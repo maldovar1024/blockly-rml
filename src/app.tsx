@@ -4,6 +4,7 @@ import './app.less';
 import {
   blocklyOptions,
   initialWorkspace,
+  mutators,
   rmlBlocks,
   RMLGenerator,
 } from './blockly-configs';
@@ -65,6 +66,7 @@ const App: FC = () => {
           blocklyOptions={blocklyOptions}
           customBlocks={rmlBlocks}
           initialWorkspace={initialWorkspace}
+          mutators={mutators}
           onWorkspaceChange={onWorkspaceChange}
         />
       </Col>

@@ -78,16 +78,25 @@
   },
   {
     "type": "logical_source",
-    "message0": "source %1",
+    "message0": "source %1 . %2",
     "args0": [
       {
         "type": "field_input",
         "name": "filename",
         "text": ""
+      },
+      {
+        "type": "field_dropdown",
+        "name": "filetype",
+        "options": [
+          ["csv", "csv"],
+          ["json", "json"]
+        ]
       }
     ],
     "output": "logical_source",
     "colour": 30,
+    "mutator": "logical_source_mutator",
     "tooltip": "定义三元组映射的逻辑源"
   },
   {

@@ -1,4 +1,5 @@
 import { Block, BlockSvg, Generator } from 'blockly';
+import { LogicalSourceType } from './types';
 
 interface ExpressionGenerator {
   (block: BlockSvg): [string | number, number];
@@ -11,7 +12,6 @@ interface StatementGenerator {
 type PredicateMapType = 'constant' | 'template';
 type ObjectMapType = 'constant' | 'reference';
 
-// TODO: 支持其它文件类型
 class RMLGenerator extends Generator {
   constructor() {
     super('RML');
@@ -65,13 +65,26 @@ class RMLGenerator extends Generator {
     return `<#${name}>\n${content}`;
   };
 
+  private static logicalSourceMap: Record<
+    LogicalSourceType,
+    (...rest: string[]) => string
+  > = {
+    csv: () => 'rml:referenceFormulation ql:CSV',
+    json: (iterator: string) =>
+      'rml:referenceFormulation ql:JSONPath;\n' +
+      `  rml:iterator "${iterator}"`,
+  };
+
   /** 生成逻辑源 */
   logical_source: ExpressionGenerator = block => {
     const filename = block.getFieldValue('filename');
+    const filetype = block.getFieldValue('filetype') as LogicalSourceType;
+    const iterator = block.getFieldValue('iterator');
+    const reference = RMLGenerator.logicalSourceMap[filetype](iterator);
     const code =
       `rml:logicalSource [\n` +
-      `  rml:source "${filename}";\n` +
-      `  rml:referenceFormulation ql:CSV\n` +
+      `  rml:source "${filename}.${filetype}";\n` +
+      `  ${reference}\n` +
       `]`;
     return this.expression(code);
   };

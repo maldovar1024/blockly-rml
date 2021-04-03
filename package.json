@@ -7,6 +7,7 @@
     "build": "craco build"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.6.2",
     "@reduxjs/toolkit": "^1.5.1",
     "antd": "4.14.1",
     "blockly": "^5.20210325.0",

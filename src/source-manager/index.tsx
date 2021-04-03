@@ -1,9 +1,9 @@
 import { Tabs, TabsProps, Upload } from 'antd';
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/stores';
-import { addSource, removeSource } from 'src/stores/source';
+import { addSource, FileType, removeSource } from 'src/stores/source';
 import './index.less';
-import { CSVViewer } from './source-viewer';
+import { CSVViewer, JSONViewer } from './source-viewer';
 
 const { TabPane } = Tabs;
 
@@ -19,8 +19,26 @@ const SourceManager: FC = () => {
     const reader = new FileReader();
     reader.onload = () => {
       const content = reader.result as string;
-      const structure = content.split('\n')[0].split(',');
-      dispatch(addSource({ filename: file.name, content, structure }));
+      if (file.type === FileType.CSV) {
+        const structure = content.split('\n')[0].split(',');
+        dispatch(
+          addSource({
+            filename: file.name,
+            content,
+            filetype: file.type,
+            structure,
+          })
+        );
+      } else if (file.type === FileType.JSON) {
+        dispatch(
+          addSource({
+            filename: file.name,
+            content,
+            filetype: file.type,
+            structure: JSON.parse(content),
+          })
+        );
+      }
     };
     reader.readAsText(file);
     return false;
@@ -38,7 +56,11 @@ const SourceManager: FC = () => {
   };
 
   const addFile = (
-    <Upload accept=".csv" beforeUpload={handleUpload} showUploadList={false}>
+    <Upload
+      accept=".csv,application/json"
+      beforeUpload={handleUpload}
+      showUploadList={false}
+    >
       +
     </Upload>
   );
@@ -56,7 +78,11 @@ const SourceManager: FC = () => {
         ? '点击加号导入文件'
         : files.map(file => (
             <TabPane key={file.filename} tab={file.filename}>
-              <CSVViewer structure={file.structure} />
+              {file.filetype === FileType.CSV ? (
+                <CSVViewer structure={file.structure} />
+              ) : (
+                <JSONViewer structure={file.structure} />
+              )}
             </TabPane>
           ))}
     </Tabs>

@@ -6,13 +6,15 @@ import {
   useAppDispatch,
   useAppSelector,
 } from 'src/stores';
-import { Filetype } from 'src/stores/types';
+import { Filetype, mimeTypes } from 'src/stores/types';
 import './index.less';
 import { CSVViewer, JSONViewer } from './source-viewer';
 
 const { TabPane } = Tabs;
 
 type TabEditEvent = TabsProps['onEdit'];
+
+const mimeTypeString = mimeTypes.join(',');
 
 const SourceManager: FC = () => {
   const [activeKey, setActiveKey] = useState<string | undefined>(undefined);
@@ -62,7 +64,7 @@ const SourceManager: FC = () => {
 
   const addFile = (
     <Upload
-      accept=".csv,application/json"
+      accept={mimeTypeString}
       beforeUpload={handleUpload}
       showUploadList={false}
     >

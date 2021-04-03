@@ -4,6 +4,8 @@ export enum Filetype {
   JSON = 'application/json',
 }
 
+export const mimeTypes = ['.csv', Filetype.JSON];
+
 export interface BaseSource {
   /** 文件名 */
   filename: string;

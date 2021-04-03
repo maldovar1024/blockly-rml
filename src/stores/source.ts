@@ -1,31 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export enum FileType {
-  CSV = 'application/vnd.ms-excel',
-  JSON = 'application/json',
-}
-
-export interface BaseSourceRecord {
-  /** 文件名 */
-  filename: string;
-  /** 文件类型 */
-  filetype: FileType;
-  /** 文件内容 */
-  content: string;
-}
-
-export interface CSVSourceRecord extends BaseSourceRecord {
-  filetype: FileType.CSV;
-  structure: string[];
-}
-
-export interface JSONSourceRecord extends BaseSourceRecord {
-  filetype: FileType.JSON;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  structure: object;
-}
-
-export type SourceRecord = CSVSourceRecord | JSONSourceRecord;
+import { SourceRecord } from './types';
 
 const initialState: SourceRecord[] = [];
 
@@ -43,6 +17,4 @@ const source = createSlice({
   },
 });
 
-export const { addSource, removeSource } = source.actions;
-
-export default source.reducer;
+export default source;

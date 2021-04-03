@@ -1,7 +1,12 @@
 import { Tabs, TabsProps, Upload } from 'antd';
 import { FC, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'src/stores';
-import { addSource, FileType, removeSource } from 'src/stores/source';
+import {
+  addSource,
+  removeSource,
+  useAppDispatch,
+  useAppSelector,
+} from 'src/stores';
+import { Filetype } from 'src/stores/types';
 import './index.less';
 import { CSVViewer, JSONViewer } from './source-viewer';
 
@@ -19,7 +24,7 @@ const SourceManager: FC = () => {
     const reader = new FileReader();
     reader.onload = () => {
       const content = reader.result as string;
-      if (file.type === FileType.CSV) {
+      if (file.type === Filetype.CSV) {
         const structure = content.split('\n')[0].split(',');
         dispatch(
           addSource({
@@ -29,7 +34,7 @@ const SourceManager: FC = () => {
             structure,
           })
         );
-      } else if (file.type === FileType.JSON) {
+      } else if (file.type === Filetype.JSON) {
         dispatch(
           addSource({
             filename: file.name,
@@ -78,7 +83,7 @@ const SourceManager: FC = () => {
         ? '点击加号导入文件'
         : files.map(file => (
             <TabPane key={file.filename} tab={file.filename}>
-              {file.filetype === FileType.CSV ? (
+              {file.filetype === Filetype.CSV ? (
                 <CSVViewer structure={file.structure} />
               ) : (
                 <JSONViewer structure={file.structure} />

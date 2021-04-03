@@ -1,9 +1,10 @@
 import { List } from 'antd';
 import { FC } from 'react';
+import { CSVSource } from 'src/stores/types';
 import './csv-viewer.less';
 
 export interface CSVViewerProps {
-  structure: string[];
+  structure: CSVSource['structure'];
 }
 
 const CSVViewer: FC<CSVViewerProps> = props => {

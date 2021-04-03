@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import ReactJson from 'react-json-view';
+import { JSONSource } from 'src/stores/types';
 
 export interface JSONViewerProps {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  structure: object;
+  structure: JSONSource['structure'];
 }
 
 const JSONViewer: FC<JSONViewerProps> = props => {

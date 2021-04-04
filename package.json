@@ -23,6 +23,7 @@
     "@types/react-redux": "^7.1.16",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
+    "craco-alias": "^2.2.0",
     "craco-antd": "^1.19.0",
     "craco-raw-loader": "^1.0.1",
     "eslint-config-prettier": "8.1.0",

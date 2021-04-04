@@ -3707,6 +3707,11 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
+craco-alias@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npm.taobao.org/craco-alias/download/craco-alias-2.2.0.tgz#adfd37f1623d394cd5e72ef9bab54a1e451bd205"
+  integrity sha1-rf038WI9OUzV5y75urVKHkUb0gU=
+
 craco-antd@^1.19.0:
   version "1.19.0"
   resolved "https://registry.npm.taobao.org/craco-antd/download/craco-antd-1.19.0.tgz#ad3b95853a29a20c6de4003874517ae2a995064b"

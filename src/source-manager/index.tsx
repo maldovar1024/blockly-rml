@@ -1,12 +1,12 @@
-import { Tabs, TabsProps, Upload } from 'antd';
-import { FC, useState } from 'react';
 import {
   addSource,
   removeSource,
   useAppDispatch,
   useAppSelector,
-} from 'src/stores';
-import { Filetype, mimeTypes } from 'src/stores/types';
+} from '@stores';
+import { Filetype, mimeTypes } from '@stores/types';
+import { Tabs, TabsProps, Upload } from 'antd';
+import { FC, useState } from 'react';
 import './index.less';
 import { CSVViewer, JSONViewer } from './source-viewer';
 

@@ -1,6 +1,6 @@
+import { CSVSource } from '@stores/types';
 import { List } from 'antd';
 import { FC } from 'react';
-import { CSVSource } from 'src/stores/types';
 import './csv-viewer.less';
 
 export interface CSVViewerProps {

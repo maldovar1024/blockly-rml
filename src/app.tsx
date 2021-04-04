@@ -11,19 +11,9 @@ import {
 import BlocklyContainer from './blockly-editor';
 import type { WorkspaceChangeCallback } from './blockly-editor/types';
 import SourceManager from './source-manager';
+import { downloadFile } from './utils';
 
 const rmlGenerator = new RMLGenerator();
-
-function download(content: string, filename: string) {
-  const eleLink = document.createElement('a');
-  eleLink.download = filename;
-  eleLink.style.display = 'none';
-  const blob = new Blob([content]);
-  eleLink.href = URL.createObjectURL(blob);
-  document.body.appendChild(eleLink);
-  eleLink.click();
-  document.body.removeChild(eleLink);
-}
 
 const App: FC = () => {
   const [code, setCode] = useState('');
@@ -38,7 +28,7 @@ const App: FC = () => {
       return;
     }
     const xml = editor.current.exportBlocks();
-    download(xml, 'blocks.xml');
+    downloadFile(xml, 'blocks.xml');
   }, []);
 
   const handleUpload = useCallback((file: File) => {

@@ -1,4 +1,4 @@
-import { Button, Col, Row, Upload } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { FC, useCallback, useRef, useState } from 'react';
 import './app.less';
 import {
@@ -11,7 +11,7 @@ import {
 import BlocklyContainer from './blockly-editor';
 import type { WorkspaceChangeCallback } from './blockly-editor/types';
 import SourceManager from './source-manager';
-import { downloadFile } from './utils';
+import { downloadFile, uploadFile } from './utils';
 
 const rmlGenerator = new RMLGenerator();
 
@@ -31,18 +31,21 @@ const App: FC = () => {
     downloadFile(xml, 'blocks.xml');
   }, []);
 
-  const handleUpload = useCallback((file: File) => {
+  const handleUpload = useCallback(async () => {
     if (editor.current === null) {
-      return false;
+      return;
     }
-    const realEditor = editor.current;
+    const file = await uploadFile('.xml');
+    if (file === undefined) {
+      return;
+    }
+    const editorElement = editor.current;
     const reader = new FileReader();
     reader.onload = () => {
       const content = reader.result as string;
-      realEditor.importBlocks(content);
+      editorElement.importBlocks(content);
     };
     reader.readAsText(file);
-    return false;
   }, []);
 
   return (
@@ -64,13 +67,7 @@ const App: FC = () => {
         <Button type="primary" onClick={exportBlocks}>
           导出
         </Button>
-        <Upload
-          accept=".xml"
-          beforeUpload={handleUpload}
-          showUploadList={false}
-        >
-          <Button>导入</Button>
-        </Upload>
+        <Button onClick={handleUpload}>导入</Button>
         <pre className="code">{code}</pre>
       </Col>
     </Row>

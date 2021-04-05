@@ -13,3 +13,19 @@ export function downloadFile(content: string, filename: string) {
   eleLink.click();
   document.body.removeChild(eleLink);
 }
+
+export function uploadFile(accept = ''): Promise<File | undefined> {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.style.display = 'none';
+  input.accept = accept;
+  const files = new Promise<File | undefined>(resolve => {
+    input.onchange = () => {
+      resolve(input.files?.[0]);
+    };
+  });
+  document.body.appendChild(input);
+  input.click();
+  document.body.removeChild(input);
+  return files;
+}

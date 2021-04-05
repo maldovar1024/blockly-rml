@@ -1,3 +1,4 @@
+import { uploadFile } from '@/utils';
 import {
   addSource,
   removeSource,
@@ -5,14 +6,14 @@ import {
   useAppSelector,
 } from '@stores';
 import { Filetype, mimeTypes } from '@stores/types';
-import { Tabs, TabsProps, Upload } from 'antd';
+import { Tabs, TabsProps } from 'antd';
 import { FC, useState } from 'react';
 import './index.less';
 import { CSVViewer, JSONViewer } from './source-viewer';
 
 const { TabPane } = Tabs;
 
-type TabEditEvent = TabsProps['onEdit'];
+type TabEditEvent = Exclude<TabsProps['onEdit'], undefined>;
 
 const mimeTypeString = mimeTypes.join(',');
 
@@ -22,7 +23,6 @@ const SourceManager: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleUpload = (file: File) => {
-    console.log(file);
     const reader = new FileReader();
     reader.onload = () => {
       const content = reader.result as string;
@@ -48,50 +48,36 @@ const SourceManager: FC = () => {
       }
     };
     reader.readAsText(file);
-    return false;
   };
 
-  const onEdit: TabEditEvent = (target, action) => {
+  const onEdit: TabEditEvent = async (target, action) => {
     if (action === 'add') {
-      return;
+      const file = await uploadFile(mimeTypeString);
+      if (file !== undefined) {
+        handleUpload(file);
+      }
+    } else if (typeof target === 'string') {
+      dispatch(removeSource(target));
     }
-    if (typeof target !== 'string') {
-      console.warn(target);
-      return;
-    }
-    dispatch(removeSource(target));
   };
-
-  const addFile = (
-    <Upload
-      accept={mimeTypeString}
-      beforeUpload={handleUpload}
-      showUploadList={false}
-    >
-      +
-    </Upload>
-  );
 
   return (
     <Tabs
       className="source-manager"
-      addIcon={addFile}
       type="editable-card"
       activeKey={activeKey}
       onChange={setActiveKey}
       onEdit={onEdit}
     >
-      {files.length === 0
-        ? '点击加号导入文件'
-        : files.map(file => (
-            <TabPane key={file.filename} tab={file.filename}>
-              {file.filetype === Filetype.CSV ? (
-                <CSVViewer structure={file.structure} />
-              ) : (
-                <JSONViewer structure={file.structure} />
-              )}
-            </TabPane>
-          ))}
+      {files.map(file => (
+        <TabPane key={file.filename} tab={file.filename}>
+          {file.filetype === Filetype.CSV ? (
+            <CSVViewer structure={file.structure} />
+          ) : (
+            <JSONViewer structure={file.structure} />
+          )}
+        </TabPane>
+      ))}
     </Tabs>
   );
 };

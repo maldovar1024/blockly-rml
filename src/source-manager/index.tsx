@@ -30,7 +30,7 @@ interface SourceManagerState {
 class SourceManager extends Component<SourceManagerProps, SourceManagerState> {
   state: Readonly<SourceManagerState> = {};
 
-  private setActiveKey = (activeKey: string) => {
+  private setActiveKey = (activeKey?: string) => {
     this.setState({ activeKey });
   };
 
@@ -60,19 +60,24 @@ class SourceManager extends Component<SourceManagerProps, SourceManagerState> {
           structure: JSON.parse(content),
         });
       }
+      this.setActiveKey(file.name);
     };
     reader.readAsText(file);
   };
 
   private onEdit: TabEditEvent = async (target, action) => {
-    const { removeSource } = this.props;
     if (action === 'add') {
       const file = await uploadFile(mimeTypeString);
       if (file !== undefined) {
         this.handleUpload(file);
       }
     } else if (typeof target === 'string') {
+      const { files, removeSource } = this.props;
       removeSource(target);
+      if (target === this.state.activeKey) {
+        const idx = files.findIndex(file => file.filename !== target);
+        this.setActiveKey(idx === -1 ? undefined : files[idx].filename);
+      }
     }
   };
 

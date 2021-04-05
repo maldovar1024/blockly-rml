@@ -1,7 +1,7 @@
 import { uploadFile } from '@/utils';
 import { addSource, connect, removeSource } from '@stores';
 import { Filetype, mimeTypes } from '@stores/types';
-import { Tabs, TabsProps } from 'antd';
+import { Modal, Tabs, TabsProps } from 'antd';
 import { Component } from 'react';
 import { ConnectedProps } from 'react-redux';
 import './index.less';
@@ -12,6 +12,16 @@ const { TabPane } = Tabs;
 type TabEditEvent = Exclude<TabsProps['onEdit'], undefined>;
 
 const mimeTypeString = mimeTypes.join(',');
+
+/** 重复文件检查的结果 */
+enum DuplicateFileCheck {
+  /** 添加新文件 */
+  add = 0,
+  /** 覆盖已有的文件 */
+  overwrite = 1,
+  /** 取消操作 */
+  cancel = 2,
+}
 
 interface SourceManagerState {
   activeKey?: string;
@@ -24,10 +34,15 @@ class SourceManager extends Component<SourceManagerProps, SourceManagerState> {
     this.setState({ activeKey });
   };
 
-  private handleUpload = (file: File) => {
-    const { addSource } = this.props;
+  private handleUpload = async (file: File) => {
+    const checkResult = await this.checkDuplicateFile(file);
+    if (checkResult === DuplicateFileCheck.cancel) {
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = () => {
+      const { addSource } = this.props;
       const content = reader.result as string;
       if (file.type === Filetype.CSV) {
         const structure = content.split('\n')[0].split(',');
@@ -59,6 +74,25 @@ class SourceManager extends Component<SourceManagerProps, SourceManagerState> {
     } else if (typeof target === 'string') {
       removeSource(target);
     }
+  };
+
+  /** 检查是否有与导入的文件同名的文件，如果有，询问用户下一步的操作 */
+  private checkDuplicateFile = (newFile: File) => {
+    const { files } = this.props;
+    return new Promise<DuplicateFileCheck>(resolve => {
+      if (files.findIndex(file => file.filename === newFile.name) === -1) {
+        resolve(DuplicateFileCheck.add);
+      } else {
+        Modal.confirm({
+          title: '替换或跳过文件',
+          content: `文件库中已存在名为 ${newFile.name} 的文件`,
+          okText: '取消载入文件',
+          onOk: () => resolve(DuplicateFileCheck.cancel),
+          cancelText: '替换已有的文件',
+          onCancel: () => resolve(DuplicateFileCheck.overwrite),
+        });
+      }
+    });
   };
 
   render() {

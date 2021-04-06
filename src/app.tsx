@@ -8,8 +8,8 @@ import {
   rmlBlocks,
   RMLGenerator,
 } from './blockly-configs';
-import BlocklyContainer from './blockly-editor';
-import type { WorkspaceChangeCallback } from './blockly-editor/types';
+import BlocklyContainer from './blockly-container';
+import type { WorkspaceChangeCallback } from './blockly-container/types';
 import SourceManager from './source-manager';
 import { downloadFile, uploadFile } from './utils';
 

@@ -1,4 +1,7 @@
-import type { GeneralMutatorType, MutatorType } from '@/blockly-editor/types';
+import type {
+  GeneralMutatorType,
+  MutatorType,
+} from '@/blockly-container/types';
 import { FieldDropdown, FieldTextInput } from 'blockly';
 import { LogicalSourceType } from './types';
 

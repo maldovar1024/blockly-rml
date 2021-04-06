@@ -7,7 +7,7 @@ import {
   mutators,
   rmlBlocks,
   RMLGenerator,
-} from './blockly-configs';
+} from './blockly-editor';
 import BlocklyContainer from './blockly-container';
 import type { WorkspaceChangeCallback } from './blockly-container/types';
 import SourceManager from './source-manager';

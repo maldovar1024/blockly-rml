@@ -2,6 +2,7 @@ import { Col, Row } from 'antd';
 import { FC } from 'react';
 import './app.less';
 import BlocklyEditor from './blockly-editor';
+import { MappingCode } from './result-manager';
 import SourceManager from './source-manager';
 
 const App: FC = () => {
@@ -13,7 +14,9 @@ const App: FC = () => {
       <Col span="14">
         <BlocklyEditor />
       </Col>
-      <Col span="6"></Col>
+      <Col span="6">
+        <MappingCode />
+      </Col>
     </Row>
   );
 };

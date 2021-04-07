@@ -5,11 +5,13 @@ import {
   useDispatch,
   useSelector,
 } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { combineReducers, createStore } from 'redux';
+import results from './results';
 import source from './source';
 
 const reducers = combineReducers({
   source: source.reducer,
+  results: results.reducer,
 });
 
 const store = createStore(reducers);
@@ -25,3 +27,4 @@ export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootStore> = useSelector;
 
 export const { addSource, removeSource } = source.actions;
+export const { setMappingCode } = results.actions;

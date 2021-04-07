@@ -27,3 +27,9 @@ export interface JSONSource extends BaseSource {
 }
 
 export type SourceRecord = CSVSource | JSONSource;
+
+/** 与生成的映射代码、映射的执行结果相关的类型定义 */
+export interface ResultStore {
+  /** 生成的映射代码 */
+  code: string;
+}

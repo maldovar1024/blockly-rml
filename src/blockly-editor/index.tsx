@@ -1,16 +1,34 @@
 import BlocklyContainer from '@/blockly-container';
 import { WorkspaceChangeCallback } from '@/blockly-container/types';
 import { connect, setMappingCode } from '@/stores';
+import { BlocklyOptions } from 'blockly';
 import { Component } from 'react';
 import { ConnectedProps } from 'react-redux';
-import blocklyOptions from './blockly-options';
 import initialWorkspace from './initial-workspace.xml';
 import rmlBlocks from './rml-blocks';
 import RMLGenerator from './rml-generator';
+import toolbox from './toolbox.xml';
 
 const rmlGenerator = new RMLGenerator();
 
 class BlocklyEditor extends Component<BlocklyEditorProps> {
+  private blocklyOptions: BlocklyOptions = {
+    comments: true,
+    collapse: true,
+    grid: {
+      spacing: 20,
+      length: 1,
+      colour: '#888',
+      snap: true,
+    },
+    move: {
+      scrollbars: true,
+    },
+    sounds: false,
+    trashcan: true,
+    toolbox,
+  };
+
   private onWorkspaceChange: WorkspaceChangeCallback = evt => {
     this.props.setMappingCode(
       rmlGenerator.workspaceToCode(evt.getEventWorkspace_())
@@ -20,7 +38,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
   render() {
     return (
       <BlocklyContainer
-        blocklyOptions={blocklyOptions}
+        blocklyOptions={this.blocklyOptions}
         customBlocks={rmlBlocks}
         initialWorkspace={initialWorkspace}
         onWorkspaceChange={this.onWorkspaceChange}

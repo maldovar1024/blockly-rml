@@ -25,7 +25,7 @@ interface BaseRegistryItem<T extends keyof ScopeMap> {
   id: string;
   weight: number;
   callback: (scope: ScopeMap[T]) => void;
-  preconditionFn: (scope: ScopeMap[T]) => string;
+  preconditionFn: (scope: ScopeMap[T]) => 'enabled' | 'disabled' | 'hidden';
   displayText: ((scope: ScopeMap[T]) => string) | string;
 }
 
@@ -35,8 +35,8 @@ export type BlockMenuItem = BaseRegistryItem<'block'>;
 export type WorkspaceMenuItem = BaseRegistryItem<'workspace'>;
 /** 右键菜单的定义 */
 export interface CustomMenuOptions {
-  blockMenuItems: BlockMenuItem[];
-  workspaceMenuItems: WorkspaceMenuItem[];
+  blockMenuItems?: BlockMenuItem[];
+  workspaceMenuItems?: WorkspaceMenuItem[];
 }
 
 /** 定义 mutator 时 `this` 的类型 */

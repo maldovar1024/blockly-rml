@@ -93,10 +93,10 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     const { blockMenuItems, workspaceMenuItems } = customMenuOptions;
     const { ScopeType, registry } = Blockly.ContextMenuRegistry;
 
-    blockMenuItems.forEach(item =>
+    blockMenuItems?.forEach(item =>
       registry.register({ ...item, scopeType: ScopeType.BLOCK })
     );
-    workspaceMenuItems.forEach(item => {
+    workspaceMenuItems?.forEach(item => {
       registry.register({ ...item, scopeType: ScopeType.WORKSPACE });
     });
   }

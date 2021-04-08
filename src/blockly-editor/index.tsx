@@ -5,6 +5,7 @@ import { BlocklyOptions } from 'blockly';
 import { Component } from 'react';
 import { ConnectedProps } from 'react-redux';
 import initialWorkspace from './initial-workspace.xml';
+import customMenuOptions from './menu-options';
 import rmlBlocks from './rml-blocks';
 import RMLGenerator from './rml-generator';
 import toolbox from './toolbox.xml';
@@ -40,6 +41,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
       <BlocklyContainer
         blocklyOptions={this.blocklyOptions}
         customBlocks={rmlBlocks}
+        customMenuOptions={customMenuOptions}
         initialWorkspace={initialWorkspace}
         onWorkspaceChange={this.onWorkspaceChange}
       />

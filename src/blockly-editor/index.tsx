@@ -5,8 +5,7 @@ import { Component } from 'react';
 import { ConnectedProps } from 'react-redux';
 import blocklyOptions from './blockly-options';
 import initialWorkspace from './initial-workspace.xml';
-import mutators from './mutators';
-import rmlBlocks from './rml-blocks.json';
+import rmlBlocks from './rml-blocks';
 import RMLGenerator from './rml-generator';
 
 const rmlGenerator = new RMLGenerator();
@@ -24,7 +23,6 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
         blocklyOptions={blocklyOptions}
         customBlocks={rmlBlocks}
         initialWorkspace={initialWorkspace}
-        mutators={mutators}
         onWorkspaceChange={this.onWorkspaceChange}
       />
     );

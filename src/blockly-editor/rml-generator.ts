@@ -1,5 +1,5 @@
 import { Block, BlockSvg, Generator } from 'blockly';
-import { LogicalSourceType } from './types';
+import { LogicalSourceType } from './rml-blocks/types';
 
 interface ExpressionGenerator {
   (block: BlockSvg): [string | number, number];

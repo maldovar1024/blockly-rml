@@ -1,6 +1,7 @@
 import type { BlocklyOptions, WorkspaceSvg } from 'blockly';
 import * as Blockly from 'blockly';
 import { Component, createRef, CSSProperties } from 'react';
+import defineBlock, { BlockSvgInterface } from './define-block';
 import type {
   CustomMenuOptions,
   GeneralMutatorType,
@@ -12,7 +13,7 @@ export interface BlocklyContainerProps {
   /** 注入 Blockly 时的配置，只在初始化时生效 */
   blocklyOptions: BlocklyOptions;
   /** 自定义 block 的定义 */
-  customBlocks?: Record<string, unknown>[];
+  customBlocks?: BlockSvgInterface[];
   /** 自定义右键菜单 */
   customMenuOptions?: CustomMenuOptions;
   initialWorkspace?: string;
@@ -52,9 +53,8 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     mutators?.forEach(mutator =>
       Blockly.Extensions.registerMutator(...mutator)
     );
-    if (customBlocks) {
-      Blockly.defineBlocksWithJsonArray(customBlocks);
-    }
+
+    customBlocks?.forEach(defineBlock);
 
     this.mainWorkspace = Blockly.inject(blocklyDiv, blocklyOptions);
     if (initialWorkspace) {

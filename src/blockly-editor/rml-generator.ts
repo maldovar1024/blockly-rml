@@ -1,4 +1,5 @@
 import { Block, BlockSvg, Generator } from 'blockly';
+import names from './rml-blocks/names';
 import { LogicalSourceType } from './rml-blocks/types';
 
 interface ExpressionGenerator {
@@ -38,27 +39,32 @@ class RMLGenerator extends Generator {
 
   /** 生成整个代码文件 */
   triple_maps: StatementGenerator = block => {
-    const prefixes = this.statementToCode(block, 'prefixes');
-    const triple_maps = this.statementToCode(block, 'triple_maps');
+    const { prefixesStat, tripleMapsStat } = names.triple_maps;
+    const prefixes = this.statementToCode(block, prefixesStat);
+    const triple_maps = this.statementToCode(block, tripleMapsStat);
     return `${prefixes}\n${triple_maps}`;
   };
 
   /** 生成一个前缀 */
   prefix: StatementGenerator = block => {
-    const prefix = block.getFieldValue('prefix');
-    const value = block.getFieldValue('value');
-    return `@prefix ${prefix}: ${value}.\n`;
+    const { prefixValue, fullValueValue } = names.prefix;
+    const prefix = block.getFieldValue(prefixValue);
+    const fullValue = block.getFieldValue(fullValueValue);
+    return `@prefix ${prefix}: ${fullValue}.\n`;
   };
 
   /** 生成一个三元组映射 */
   triple_map: StatementGenerator = block => {
-    const name = block.getFieldValue('map_name');
-    const source = this.valueToCode(block, 'source');
-    const subjectMap = this.valueToCode(block, 'subject_map');
-    const predicateObjectMaps = this.statementToCode(
-      block,
-      'predicate_object_maps'
-    );
+    const {
+      nameValue,
+      sourceInput,
+      subjectMapInput,
+      predObjMapsStat,
+    } = names.triple_map;
+    const name = block.getFieldValue(nameValue);
+    const source = this.valueToCode(block, sourceInput);
+    const subjectMap = this.valueToCode(block, subjectMapInput);
+    const predicateObjectMaps = this.statementToCode(block, predObjMapsStat);
     const content = this.indentLines(
       `${source};\n${subjectMap};\n${predicateObjectMaps}.`
     );
@@ -77,9 +83,10 @@ class RMLGenerator extends Generator {
 
   /** 生成逻辑源 */
   logical_source: ExpressionGenerator = block => {
-    const filename = block.getFieldValue('filename');
-    const filetype = block.getFieldValue('filetype') as LogicalSourceType;
-    const iterator = block.getFieldValue('iterator');
+    const { filenameValue, filetypeDrop, iteratorValue } = names.logical_source;
+    const filename = block.getFieldValue(filenameValue);
+    const filetype = block.getFieldValue(filetypeDrop) as LogicalSourceType;
+    const iterator = block.getFieldValue(iteratorValue);
     const reference = RMLGenerator.logicalSourceMap[filetype](iterator);
     const code =
       `rml:logicalSource [\n` +
@@ -91,8 +98,9 @@ class RMLGenerator extends Generator {
 
   /** 生成一个主语映射 */
   subject_map: ExpressionGenerator = block => {
-    const template = block.getFieldValue('template');
-    const rr_class = this.indentLines(this.statementToCode(block, 'classes'));
+    const { templateValue, classesStat } = names.subject_map;
+    const template = block.getFieldValue(templateValue);
+    const rr_class = this.indentLines(this.statementToCode(block, classesStat));
     const code =
       `rr:subjectMap [\n` +
       `  rr:template "${template}";\n` +
@@ -103,22 +111,25 @@ class RMLGenerator extends Generator {
 
   /** 生成主语的类型 */
   rr_class: StatementGenerator = block => {
-    const rr_class = block.getFieldValue('class');
+    const { classValue } = names.rr_class;
+    const rr_class = block.getFieldValue(classValue);
     return `rr:class ${rr_class}`;
   };
 
   /** 生成谓语-宾语映射 */
   predicate_object_maps: StatementGenerator = block => {
-    const predicate_maps = this.statementToCode(block, 'predicate_maps');
-    const object_maps = this.statementToCode(block, 'object_maps');
+    const { predMapsStat, ObjMapsStat } = names.predicate_object_maps;
+    const predicate_maps = this.statementToCode(block, predMapsStat);
+    const object_maps = this.statementToCode(block, ObjMapsStat);
     const content = this.indentLines(`${predicate_maps};\n${object_maps}\n`);
     return `rr:predicateObjectMap [\n${content}]`;
   };
 
   /** 生成一个谓语映射 */
   predicate_map: StatementGenerator = block => {
-    const type = block.getFieldValue('type') as PredicateMapType;
-    const value = block.getFieldValue('value');
+    const { typeDrop, mapValue } = names.predicate_map;
+    const type = block.getFieldValue(typeDrop) as PredicateMapType;
+    const value = block.getFieldValue(mapValue);
     if (type === 'constant') {
       return `rr:predicate ${value}`;
     }
@@ -127,8 +138,9 @@ class RMLGenerator extends Generator {
 
   /** 生成一个宾语映射 */
   object_map: StatementGenerator = block => {
-    const type = block.getFieldValue('type') as ObjectMapType;
-    const value = block.getFieldValue('value');
+    const { typeDrop, mapValue } = names.object_map;
+    const type = block.getFieldValue(typeDrop) as ObjectMapType;
+    const value = block.getFieldValue(mapValue);
     if (type === 'constant') {
       return `rr:object ${value}`;
     }

@@ -1,6 +1,9 @@
 import { BlockSvgInterface } from '@/blockly-container/define-block';
 import { FieldDropdown, FieldTextInput } from 'blockly';
+import names from './names';
 import { BlockThis, LogicalSourceType } from './types';
+
+const { logical_source } = names;
 
 type LogicalSourceThis = BlockThis<LogicalSourceBlock>;
 
@@ -12,12 +15,12 @@ class LogicalSourceBlock implements BlockSvgInterface {
     args0: [
       {
         type: 'field_input',
-        name: 'filename',
+        name: logical_source.filenameValue,
         text: '',
       },
       {
         type: 'field_dropdown',
-        name: 'filetype',
+        name: logical_source.filetypeDrop,
         options: [
           ['csv', 'csv'],
           ['json', 'json'],
@@ -29,13 +32,9 @@ class LogicalSourceBlock implements BlockSvgInterface {
     tooltip: '定义三元组映射的逻辑源',
   };
 
-  iteratorInputName = 'iterator_input';
-  iteratorFieldName = 'iterator';
-  filetypeFieldName = 'filetype';
-
   init = function (this: LogicalSourceThis) {
-    const { filetypeFieldName } = this;
-    const filetypeField = this.getField(filetypeFieldName) as FieldDropdown;
+    const { filetypeDrop } = logical_source;
+    const filetypeField = this.getField(filetypeDrop) as FieldDropdown;
     filetypeField.setValidator((newValue: LogicalSourceType) => {
       const oldValue = filetypeField.getValue() as LogicalSourceType;
       if (oldValue !== newValue) {
@@ -45,18 +44,15 @@ class LogicalSourceBlock implements BlockSvgInterface {
   };
 
   mutationToDom = function (this: LogicalSourceThis) {
-    const { filetypeFieldName } = this;
+    const { filetypeDrop } = logical_source;
     const mutation = document.createElement('mutation');
-    mutation.setAttribute(
-      filetypeFieldName,
-      this.getFieldValue(filetypeFieldName)
-    );
+    mutation.setAttribute(filetypeDrop, this.getFieldValue(filetypeDrop));
     return mutation;
   };
 
   domToMutation = function (this: LogicalSourceThis, element: Element) {
-    const { filetypeFieldName } = this;
-    const filetype = (element.getAttribute(filetypeFieldName) ??
+    const { filetypeDrop } = logical_source;
+    const filetype = (element.getAttribute(filetypeDrop) ??
       'csv') as LogicalSourceType;
     this.updateShape(filetype);
   };
@@ -65,13 +61,13 @@ class LogicalSourceBlock implements BlockSvgInterface {
     this: LogicalSourceThis,
     newValue: LogicalSourceType
   ) {
-    const { iteratorInputName, iteratorFieldName } = this;
+    const { iteratorDummy, iteratorValue } = logical_source;
     if (newValue === 'csv') {
-      this.removeInput(iteratorInputName, true);
-    } else if (this.getInput(iteratorInputName) === null) {
-      this.appendDummyInput(iteratorInputName)
-        .appendField(iteratorFieldName)
-        .appendField(new FieldTextInput(''), iteratorFieldName);
+      this.removeInput(iteratorDummy, true);
+    } else if (this.getInput(iteratorDummy) === null) {
+      this.appendDummyInput(iteratorDummy)
+        .appendField(iteratorValue)
+        .appendField(new FieldTextInput(''), iteratorValue);
     }
   };
 }

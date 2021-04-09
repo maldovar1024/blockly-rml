@@ -1,6 +1,6 @@
 /** 只需要 json 定义的 block */
-
 import { BlockSvgInterface } from '@/blockly-container/define-block';
+import names from './names';
 
 export default <BlockSvgInterface[]>[
   {
@@ -11,12 +11,12 @@ export default <BlockSvgInterface[]>[
       args0: [
         {
           type: 'input_statement',
-          name: 'prefixes',
+          name: names.triple_maps.prefixesStat,
           check: 'prefix',
         },
         {
           type: 'input_statement',
-          name: 'triple_maps',
+          name: names.triple_maps.tripleMapsStat,
           check: 'triple_map',
         },
       ],
@@ -32,12 +32,12 @@ export default <BlockSvgInterface[]>[
       args0: [
         {
           type: 'field_input',
-          name: 'prefix',
+          name: names.prefix.prefixValue,
           text: '',
         },
         {
           type: 'field_input',
-          name: 'value',
+          name: names.prefix.fullValueValue,
           text: '',
         },
       ],
@@ -55,7 +55,7 @@ export default <BlockSvgInterface[]>[
       args0: [
         {
           type: 'field_input',
-          name: 'map_name',
+          name: names.triple_map.nameValue,
           text: '',
         },
       ],
@@ -63,7 +63,7 @@ export default <BlockSvgInterface[]>[
       args1: [
         {
           type: 'input_value',
-          name: 'source',
+          name: names.triple_map.sourceInput,
           check: 'logical_source',
         },
       ],
@@ -71,7 +71,7 @@ export default <BlockSvgInterface[]>[
       args2: [
         {
           type: 'input_value',
-          name: 'subject_map',
+          name: names.triple_map.subjectMapInput,
           check: 'subject_map',
         },
       ],
@@ -79,7 +79,7 @@ export default <BlockSvgInterface[]>[
       args3: [
         {
           type: 'input_statement',
-          name: 'predicate_object_maps',
+          name: names.triple_map.predObjMapsStat,
           check: 'predicate_object_maps',
         },
       ],
@@ -97,12 +97,12 @@ export default <BlockSvgInterface[]>[
       args0: [
         {
           type: 'field_input',
-          name: 'template',
+          name: names.subject_map.templateValue,
           text: ' ',
         },
         {
           type: 'input_statement',
-          name: 'classes',
+          name: names.subject_map.classesStat,
           check: 'rr_class',
         },
       ],
@@ -119,7 +119,7 @@ export default <BlockSvgInterface[]>[
       args0: [
         {
           type: 'field_input',
-          name: 'class',
+          name: names.rr_class.classValue,
           text: ' ',
         },
       ],
@@ -137,12 +137,12 @@ export default <BlockSvgInterface[]>[
       args0: [
         {
           type: 'input_statement',
-          name: 'predicate_maps',
+          name: names.predicate_object_maps.predMapsStat,
           check: 'predicate_map',
         },
         {
           type: 'input_statement',
-          name: 'object_maps',
+          name: names.predicate_object_maps.ObjMapsStat,
           check: 'object_map',
         },
       ],
@@ -160,7 +160,7 @@ export default <BlockSvgInterface[]>[
       args0: [
         {
           type: 'field_dropdown',
-          name: 'type',
+          name: names.predicate_map.typeDrop,
           options: [
             ['constant', 'constant'],
             ['template', 'template'],
@@ -168,7 +168,7 @@ export default <BlockSvgInterface[]>[
         },
         {
           type: 'field_input',
-          name: 'value',
+          name: names.predicate_map.mapValue,
           text: ' ',
         },
       ],
@@ -186,7 +186,7 @@ export default <BlockSvgInterface[]>[
       args0: [
         {
           type: 'field_dropdown',
-          name: 'type',
+          name: names.object_map.typeDrop,
           options: [
             ['constant', 'constant'],
             ['reference', 'reference'],
@@ -194,7 +194,7 @@ export default <BlockSvgInterface[]>[
         },
         {
           type: 'field_input',
-          name: 'value',
+          name: names.object_map.mapValue,
           text: '',
         },
       ],

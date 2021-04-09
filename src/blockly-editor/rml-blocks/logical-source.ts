@@ -1,6 +1,8 @@
 import { BlockSvgInterface } from '@/blockly-container/define-block';
-import { BlockSvg, FieldDropdown, FieldTextInput } from 'blockly';
-import { LogicalSourceType } from './types';
+import { FieldDropdown, FieldTextInput } from 'blockly';
+import { BlockThis, LogicalSourceType } from './types';
+
+type LogicalSourceThis = BlockThis<LogicalSourceBlock>;
 
 class LogicalSourceBlock implements BlockSvgInterface {
   name = 'logical_source';
@@ -31,7 +33,7 @@ class LogicalSourceBlock implements BlockSvgInterface {
   iteratorFieldName = 'iterator';
   filetypeFieldName = 'filetype';
 
-  init = function (this: LogicalSourceBlock & BlockSvg) {
+  init = function (this: LogicalSourceThis) {
     const { filetypeFieldName } = this;
     const filetypeField = this.getField(filetypeFieldName) as FieldDropdown;
     filetypeField.setValidator((newValue: LogicalSourceType) => {
@@ -42,7 +44,7 @@ class LogicalSourceBlock implements BlockSvgInterface {
     });
   };
 
-  mutationToDom = function (this: LogicalSourceBlock & BlockSvg) {
+  mutationToDom = function (this: LogicalSourceThis) {
     const { filetypeFieldName } = this;
     const mutation = document.createElement('mutation');
     mutation.setAttribute(
@@ -52,10 +54,7 @@ class LogicalSourceBlock implements BlockSvgInterface {
     return mutation;
   };
 
-  domToMutation = function (
-    this: LogicalSourceBlock & BlockSvg,
-    element: Element
-  ) {
+  domToMutation = function (this: LogicalSourceThis, element: Element) {
     const { filetypeFieldName } = this;
     const filetype = (element.getAttribute(filetypeFieldName) ??
       'csv') as LogicalSourceType;
@@ -63,7 +62,7 @@ class LogicalSourceBlock implements BlockSvgInterface {
   };
 
   updateShape = function (
-    this: LogicalSourceBlock & BlockSvg,
+    this: LogicalSourceThis,
     newValue: LogicalSourceType
   ) {
     const { iteratorInputName, iteratorFieldName } = this;

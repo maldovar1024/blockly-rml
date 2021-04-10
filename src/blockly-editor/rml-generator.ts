@@ -139,13 +139,32 @@ class RMLGenerator extends Generator {
 
   /** 生成一个宾语映射 */
   object_map: StatementGenerator = block => {
-    const { typeDrop, mapValue } = names.object_map;
+    const {
+      typeDrop,
+      mapValue,
+      parentMapValue,
+      joinConditionStat,
+    } = names.object_map;
     const type = block.getFieldValue(typeDrop) as ObjectMapType;
     const value = block.getFieldValue(mapValue);
-    if (type === 'constant') {
-      return `rr:object ${value}`;
+    switch (type) {
+      case 'constant':
+        return `rr:object ${value}`;
+      case 'reference':
+        return `rr:objectMap [\n  rml:reference "${value}"\n]`;
+      case 'join': {
+        const parentMap = block.getFieldValue(parentMapValue);
+        const joinCondition = this.statementToCode(block, joinConditionStat);
+        const content = this.indentLines(
+          `rr:parentTriplesMap <#${parentMap}>;\n${
+            joinCondition === '' ? '' : `${joinCondition}\n`
+          }`
+        );
+        return `rr:objectMap [\n${content}]`;
+      }
+      default:
+        return '';
     }
-    return `rr:objectMap [\n  rml:reference "${value}"\n]`;
   };
 
   /** 生成一个连接条件 */

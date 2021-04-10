@@ -7,4 +7,4 @@ export type LogicalSourceType = 'csv' | 'json';
 /** predicate_map 块下拉框的类型 */
 export type PredicateMapType = 'constant' | 'template';
 /** object_map 块下拉框的类型 */
-export type ObjectMapType = 'constant' | 'reference';
+export type ObjectMapType = 'constant' | 'reference' | 'join';

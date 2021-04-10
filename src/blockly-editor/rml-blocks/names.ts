@@ -44,6 +44,11 @@ const names = Object.freeze({
   object_map: {
     typeDrop: 'type',
     mapValue: 'value',
+    mapValueDummy: 'value_dummy',
+    mapValueLabel: 'Map Target',
+    parentMapDummy: 'parent_dummy',
+    parentMapLabel: 'Parent Map',
+    parentMapValue: 'parent_map',
   },
 });
 

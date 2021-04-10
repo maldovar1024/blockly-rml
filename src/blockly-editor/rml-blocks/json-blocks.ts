@@ -178,30 +178,4 @@ export default <BlockSvgInterface[]>[
       tooltip: '定义三元组映射的谓语映射',
     },
   },
-  {
-    name: 'object_map',
-    json: {
-      type: 'object_map',
-      message0: '%1 %2',
-      args0: [
-        {
-          type: 'field_dropdown',
-          name: names.object_map.typeDrop,
-          options: [
-            ['constant', 'constant'],
-            ['reference', 'reference'],
-          ],
-        },
-        {
-          type: 'field_input',
-          name: names.object_map.mapValue,
-          text: '',
-        },
-      ],
-      previousStatement: 'object_map',
-      nextStatement: 'object_map',
-      colour: 180,
-      tooltip: '定义三元组映射的宾语映射',
-    },
-  },
 ];

@@ -1,5 +1,7 @@
 import type { BlocklyOptions, WorkspaceSvg } from 'blockly';
 import * as Blockly from 'blockly';
+// eslint-disable-next-line import/no-unresolved
+import cn from 'blockly/msg/zh-hans';
 import { Component, createRef, CSSProperties } from 'react';
 import defineBlock, { BlockSvgInterface } from './define-block';
 import type {
@@ -8,6 +10,8 @@ import type {
   RegistryType,
   WorkspaceChangeCallback,
 } from './types';
+
+Blockly.setLocale(cn);
 
 export interface BlocklyContainerProps {
   /** 注入 Blockly 时的配置，只在初始化时生效 */

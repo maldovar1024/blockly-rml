@@ -1,19 +1,19 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none">
-  <block type="triple_maps" id="*?ezM]}Vt``Fcj|:Yi`B" x="-38" y="13">
+  <block type="triple_maps" x="0">
     <statement name="prefixes">
-      <block type="prefix" id="LNTu_J:%~|.MXG_k[6l:">
+      <block type="prefix">
         <field name="prefix">rml</field>
         <field name="value">&lt;http://semweb.mmlab.be/ns/rml#&gt;</field>
         <next>
-          <block type="prefix" id=",*OZ)E,xo~:f;nX#6-.N">
+          <block type="prefix">
             <field name="prefix">ql</field>
             <field name="value">&lt;http://semweb.mmlab.be/ns/ql#&gt;</field>
             <next>
-              <block type="prefix" id="S?E9N4Sr[{#a/+ZIQ]{y">
+              <block type="prefix">
                 <field name="prefix">rr</field>
                 <field name="value">&lt;http://www.w3.org/ns/r2rml#&gt;</field>
                 <next>
-                  <block type="prefix" id=",~=mV%R^HGq+8uI9hd;U">
+                  <block type="prefix">
                     <field name="prefix">ex</field>
                     <field name="value">&lt;http://example.com/ns#&gt;</field>
                   </block>
@@ -25,33 +25,33 @@
       </block>
     </statement>
     <statement name="triple_maps">
-      <block type="triple_map" id="2ma~C4tD)M9GK$v{zkC(">
+      <block type="triple_map">
         <field name="map_name"></field>
         <value name="source">
-          <block type="logical_source" id="r6tA[5J`,]1X#Xm],Zp7">
+          <block type="logical_source">
             <field name="filename"></field>
           </block>
         </value>
         <value name="subject_map">
-          <block type="subject_map" id="?Mz6bwM[$t).pJ/l6uI^">
+          <block type="subject_map">
             <field name="template"></field>
             <statement name="classes">
-              <block type="rr_class" id="R~aP1(@m6Ez:A,c]4A=-">
+              <block type="rr_class">
                 <field name="class"></field>
               </block>
             </statement>
           </block>
         </value>
         <statement name="predicate_object_maps">
-          <block type="predicate_object_maps" id="`D@kkTNHdIVRoc9/{f;I">
+          <block type="predicate_object_maps">
             <statement name="predicate_maps">
-              <block type="predicate_map" id="o=Np8Ce)t$:Z85l36;$+">
+              <block type="predicate_map">
                 <field name="type">constant</field>
                 <field name="value"></field>
               </block>
             </statement>
             <statement name="object_maps">
-              <block type="object_map" id="k[Ad1?u7zKMp.~|2D7oW">
+              <block type="object_map">
                 <field name="type">constant</field>
                 <field name="value"></field>
               </block>

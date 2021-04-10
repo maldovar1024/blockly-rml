@@ -1,6 +1,10 @@
 import { Block, BlockSvg, Generator } from 'blockly';
 import names from './rml-blocks/names';
-import { LogicalSourceType } from './rml-blocks/types';
+import {
+  LogicalSourceType,
+  ObjectMapType,
+  PredicateMapType,
+} from './rml-blocks/types';
 
 interface ExpressionGenerator {
   (block: BlockSvg): [string | number, number];
@@ -9,9 +13,6 @@ interface ExpressionGenerator {
 interface StatementGenerator {
   (block: BlockSvg): string;
 }
-
-type PredicateMapType = 'constant' | 'template';
-type ObjectMapType = 'constant' | 'reference';
 
 class RMLGenerator extends Generator {
   constructor() {

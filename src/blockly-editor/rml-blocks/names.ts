@@ -49,6 +49,8 @@ const names = Object.freeze({
     parentMapDummy: 'parent_dummy',
     parentMapLabel: 'Parent Map',
     parentMapValue: 'parent_map',
+    joinConditionStat: 'join_conditions',
+    joinConditionLabel: 'Join Conditions',
   },
   join_condition: {
     childRefValue: 'child_ref',

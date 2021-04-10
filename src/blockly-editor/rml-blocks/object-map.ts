@@ -61,10 +61,13 @@ class ObjectMapBlock implements BlockSvgInterface {
       parentMapDummy,
       parentMapLabel,
       parentMapValue,
+      joinConditionLabel,
+      joinConditionStat,
     } = object_map;
     if (newValue !== 'join') {
+      this.removeInput(parentMapDummy, true);
+      this.removeInput(joinConditionStat, true);
       if (this.getInput(mapValueDummy) === null) {
-        this.removeInput(parentMapDummy, true);
         this.constructMapValueDummy();
       }
     } else if (this.getInput(parentMapDummy) === null) {
@@ -73,6 +76,9 @@ class ObjectMapBlock implements BlockSvgInterface {
         .appendField(`${parentMapLabel} <#`)
         .appendField(new FieldTextInput(''), parentMapValue)
         .appendField('>');
+      this.appendStatementInput(joinConditionStat)
+        .setCheck('join_condition')
+        .appendField(joinConditionLabel);
     }
   };
 

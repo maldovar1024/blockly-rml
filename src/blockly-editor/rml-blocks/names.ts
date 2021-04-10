@@ -50,6 +50,10 @@ const names = Object.freeze({
     parentMapLabel: 'Parent Map',
     parentMapValue: 'parent_map',
   },
+  join_condition: {
+    childRefValue: 'child_ref',
+    parentRefValue: 'parent_ref',
+  },
 });
 
 export default names;

@@ -25,4 +25,8 @@
     <field name="type">constant</field>
     <field name="value"></field>
   </block>
+  <block type="join_condition">
+    <field name="child"></field>
+    <field name="parent"></field>
+  </block>
 </xml>

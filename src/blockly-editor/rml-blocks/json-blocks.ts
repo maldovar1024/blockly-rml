@@ -178,4 +178,30 @@ export default <BlockSvgInterface[]>[
       tooltip: '定义三元组映射的谓语映射',
     },
   },
+  {
+    name: 'join_condition',
+    json: {
+      type: 'join_condition',
+      message0: 'Child %1',
+      args0: [
+        {
+          type: 'field_input',
+          name: names.join_condition.childRefValue,
+          text: '',
+        },
+      ],
+      message1: 'Parent %1',
+      args1: [
+        {
+          type: 'field_input',
+          name: names.join_condition.parentRefValue,
+          text: '',
+        },
+      ],
+      previousStatement: 'join_condition',
+      nextStatement: 'join_condition',
+      colour: 270,
+      tooltip: '定义连接条件',
+    },
+  },
 ];

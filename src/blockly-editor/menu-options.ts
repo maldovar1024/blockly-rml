@@ -2,9 +2,22 @@ import { CustomMenuOptions } from '@/blockly-container/types';
 import { downloadFile, uploadAndReadTextFile } from '@/utils';
 import { message } from 'antd';
 import { Xml } from 'blockly';
+import initialWorkspace from './initial-workspace.xml';
 
 const customMenuOptions: CustomMenuOptions = {
   workspaceMenuItems: [
+    {
+      displayText: '重置工作区',
+      preconditionFn() {
+        return 'enabled';
+      },
+      callback({ workspace }) {
+        const xml = Xml.textToDom(initialWorkspace);
+        Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+      },
+      id: 'reset_workspace',
+      weight: 100,
+    },
     {
       displayText: '导出',
       preconditionFn() {

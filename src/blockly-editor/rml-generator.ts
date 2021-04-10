@@ -148,6 +148,19 @@ class RMLGenerator extends Generator {
     return `rr:objectMap [\n  rml:reference "${value}"\n]`;
   };
 
+  /** 生成一个连接条件 */
+  join_condition: StatementGenerator = block => {
+    const { childRefValue, parentRefValue } = names.join_condition;
+    const childRef = block.getFieldValue(childRefValue);
+    const parentRef = block.getFieldValue(parentRefValue);
+    return (
+      'rr:joinCondition [\n' +
+      `  rr:child "${childRef}"\n` +
+      `  rr:parent "${parentRef}"\n` +
+      ']'
+    );
+  };
+
   private static delimiterMap: Record<string, string | undefined> = {
     prefix: '',
     triple_map: '\n\n',

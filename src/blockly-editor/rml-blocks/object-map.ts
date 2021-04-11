@@ -11,7 +11,7 @@ class ObjectMapBlock implements BlockSvgInterface {
   name = 'object_map';
   json = {
     type: this.name,
-    message0: 'Map Type: %1',
+    message0: 'Map Type %1',
     args0: [
       {
         type: 'field_dropdown',
@@ -58,6 +58,9 @@ class ObjectMapBlock implements BlockSvgInterface {
   updateShape = function (this: ObjectMapThis, newValue: ObjectMapType) {
     const {
       mapValueDummy,
+      datatypeDummy,
+      datatypeLabel,
+      datatypeValue,
       parentMapDummy,
       parentMapLabel,
       parentMapValue,
@@ -69,6 +72,16 @@ class ObjectMapBlock implements BlockSvgInterface {
       this.removeInput(joinConditionStat, true);
       if (this.getInput(mapValueDummy) === null) {
         this.constructMapValueDummy();
+      }
+      if (newValue === 'constant') {
+        this.removeInput(datatypeDummy, true);
+      } else if (
+        newValue === 'reference' &&
+        this.getInput(datatypeDummy) === null
+      ) {
+        this.appendDummyInput(datatypeDummy)
+          .appendField(datatypeLabel)
+          .appendField(new FieldTextInput(''), datatypeValue);
       }
     } else if (this.getInput(parentMapDummy) === null) {
       this.removeInput(mapValueDummy, true);

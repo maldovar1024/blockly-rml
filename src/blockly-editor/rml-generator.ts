@@ -141,6 +141,7 @@ class RMLGenerator extends Generator {
   object_map: StatementGenerator = block => {
     const {
       typeDrop,
+      datatypeValue,
       mapValue,
       parentMapValue,
       joinConditionStat,
@@ -150,8 +151,11 @@ class RMLGenerator extends Generator {
     switch (type) {
       case 'constant':
         return `rr:object ${value}`;
-      case 'reference':
-        return `rr:objectMap [\n  rml:reference "${value}"\n]`;
+      case 'reference': {
+        const datatype = block.getFieldValue(datatypeValue);
+        const datatypeMap = datatype ? `  rr:datatype ${datatype}\n` : '';
+        return `rr:objectMap [\n  rml:reference "${value}"\n${datatypeMap}]`;
+      }
       case 'join': {
         const parentMap = block.getFieldValue(parentMapValue);
         const joinCondition = this.statementToCode(block, joinConditionStat);

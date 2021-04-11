@@ -15,4 +15,16 @@
   & > .ant-tabs-content-holder {
     overflow: auto;
   }
+
+  &.empty > .ant-tabs-content-holder {
+    position: relative;
+    &::before {
+      content: '点击 “+” 添加文件';
+      position: absolute;
+      color: gray;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }

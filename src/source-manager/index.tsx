@@ -103,9 +103,10 @@ class SourceManager extends Component<SourceManagerProps, SourceManagerState> {
   render() {
     const { activeKey } = this.state;
     const { files } = this.props;
+    const className = 'source-manager' + (files.length === 0 ? ' empty' : '');
     return (
       <Tabs
-        className="source-manager"
+        className={className}
         type="editable-card"
         activeKey={activeKey}
         onChange={this.setActiveKey}

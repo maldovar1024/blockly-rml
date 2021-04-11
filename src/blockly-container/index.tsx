@@ -24,7 +24,7 @@ export interface BlocklyContainerProps {
   registryItems?: RegistryType[];
   mutators?: GeneralMutatorType[];
   /** 工作区发生改变时的回调函数 */
-  onWorkspaceChange?: WorkspaceChangeCallback;
+  workspaceChangeCallbacks?: WorkspaceChangeCallback[];
   className?: string;
 }
 
@@ -48,7 +48,7 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
       customBlocks,
       initialWorkspace,
       mutators,
-      onWorkspaceChange,
+      workspaceChangeCallbacks,
       registryItems,
     } = this.props;
 
@@ -67,9 +67,9 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
         this.mainWorkspace
       );
     }
-    if (onWorkspaceChange) {
-      this.mainWorkspace.addChangeListener(onWorkspaceChange);
-    }
+    workspaceChangeCallbacks?.forEach(callback =>
+      this.mainWorkspace.addChangeListener(callback)
+    );
   }
 
   exportBlocks() {

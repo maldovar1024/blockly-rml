@@ -1,7 +1,7 @@
 import BlocklyContainer from '@/blockly-container';
 import { WorkspaceChangeCallback } from '@/blockly-container/types';
 import { connect, setMappingCode } from '@/stores';
-import { BlocklyOptions } from 'blockly';
+import { BlocklyOptions, Events } from 'blockly';
 import { Component } from 'react';
 import { ConnectedProps } from 'react-redux';
 import initialWorkspace from './initial-workspace.xml';
@@ -36,6 +36,11 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     );
   };
 
+  private workspaceChangeCallbacks = [
+    this.onWorkspaceChange,
+    Events.disableOrphans,
+  ];
+
   render() {
     return (
       <BlocklyContainer
@@ -43,7 +48,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
         customBlocks={rmlBlocks}
         customMenuOptions={customMenuOptions}
         initialWorkspace={initialWorkspace}
-        onWorkspaceChange={this.onWorkspaceChange}
+        workspaceChangeCallbacks={this.workspaceChangeCallbacks}
       />
     );
   }

@@ -69,7 +69,7 @@ class RMLGenerator extends Generator {
     const content = this.indentLines(
       `${source};\n${subjectMap};\n${predicateObjectMaps}.`
     );
-    return `<#${name}>\n${content}`;
+    return `<#${name}> a rr:TriplesMap;\n${content}`;
   };
 
   private static logicalSourceMap: Record<

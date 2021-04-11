@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+::selection {
+  background-color: #73c9e5;
+  color: black;
+}
+
 :root {
   --scrollbar-width: 10px;
 }

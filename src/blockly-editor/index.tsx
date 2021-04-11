@@ -30,6 +30,8 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     toolbox,
   };
 
+  private unregisteredMenus = ['workspaceDelete'];
+
   private onWorkspaceChange: WorkspaceChangeCallback = evt => {
     this.props.setMappingCode(
       rmlGenerator.workspaceToCode(evt.getEventWorkspace_())
@@ -47,6 +49,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
         blocklyOptions={this.blocklyOptions}
         customBlocks={rmlBlocks}
         customMenuOptions={customMenuOptions}
+        unregisteredMenuItems={this.unregisteredMenus}
         initialWorkspace={initialWorkspace}
         workspaceChangeCallbacks={this.workspaceChangeCallbacks}
       />

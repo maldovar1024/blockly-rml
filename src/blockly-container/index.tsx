@@ -20,6 +20,8 @@ export interface BlocklyContainerProps {
   customBlocks?: BlockSvgInterface[];
   /** 自定义右键菜单 */
   customMenuOptions?: CustomMenuOptions;
+  /** 要注销的右键菜单的 id */
+  unregisteredMenuItems?: string[];
   initialWorkspace?: string;
   registryItems?: RegistryType[];
   mutators?: GeneralMutatorType[];
@@ -47,13 +49,23 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
       blocklyOptions,
       customBlocks,
       initialWorkspace,
+      unregisteredMenuItems,
       mutators,
       workspaceChangeCallbacks,
       registryItems,
     } = this.props;
 
     this.registerCustomMenuOptions();
+    unregisteredMenuItems?.forEach(id => {
+      try {
+        Blockly.ContextMenuRegistry.registry.unregister(id);
+      } catch {
+        console.warn(`尝试注销不存在的右键菜单项 ${id}`);
+      }
+    });
+
     registryItems?.forEach(item => Blockly.registry.register(...item));
+
     mutators?.forEach(mutator =>
       Blockly.Extensions.registerMutator(...mutator)
     );

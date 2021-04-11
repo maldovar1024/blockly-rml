@@ -3,6 +3,7 @@
         "antd",
         "blockly",
         "craco",
+        "deletable",
         "eslintcache",
         "mutators",
         "reduxjs"

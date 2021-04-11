@@ -1,5 +1,4 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-  <block type="triple_maps"></block>
   <block type="prefix">
     <field name="prefix"></field>
     <field name="value"></field>

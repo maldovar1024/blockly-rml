@@ -1,15 +1,15 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none">
-  <block type="triple_maps" x="0">
+  <block type="triple_maps" x="0" deletable="false">
     <statement name="prefixes">
-      <block type="prefix">
+      <block type="prefix" editable="false" deletable="false" movable="false">
         <field name="prefix">rml</field>
         <field name="value">&lt;http://semweb.mmlab.be/ns/rml#&gt;</field>
         <next>
-          <block type="prefix">
+          <block type="prefix" editable="false" deletable="false" movable="false">
             <field name="prefix">ql</field>
             <field name="value">&lt;http://semweb.mmlab.be/ns/ql#&gt;</field>
             <next>
-              <block type="prefix">
+              <block type="prefix" editable="false" deletable="false" movable="false">
                 <field name="prefix">rr</field>
                 <field name="value">&lt;http://www.w3.org/ns/r2rml#&gt;</field>
                 <next>

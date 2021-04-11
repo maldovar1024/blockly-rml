@@ -25,7 +25,7 @@
     <field name="value"></field>
   </block>
   <block type="join_condition">
-    <field name="child"></field>
-    <field name="parent"></field>
+    <field name="child_ref"></field>
+    <field name="parent_ref"></field>
   </block>
 </xml>

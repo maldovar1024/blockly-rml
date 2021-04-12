@@ -45,7 +45,8 @@ class SourceManager extends Component<SourceManagerProps, SourceManagerState> {
       const { addSource } = this.props;
       const content = reader.result as string;
       if (file.type === Filetype.CSV) {
-        const structure = content.split('\n')[0].split(',');
+        const firstLineEndPos = content.search(/\r?\n/);
+        const structure = content.slice(0, firstLineEndPos).split(',');
         addSource({
           filename: file.name,
           content,

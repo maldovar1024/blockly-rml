@@ -43,7 +43,7 @@ const names = Object.freeze({
   predicate_object_maps: {
     name: 'predicate_object_maps',
     predMapsStat: 'predicate_maps',
-    ObjMapsStat: 'object_maps',
+    objMapsStat: 'object_maps',
   },
   predicate_map: {
     name: 'predicate_map',

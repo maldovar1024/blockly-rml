@@ -142,7 +142,7 @@ export default <BlockSvgInterface[]>[
         },
         {
           type: 'input_statement',
-          name: names.predicate_object_maps.ObjMapsStat,
+          name: names.predicate_object_maps.objMapsStat,
           check: names.object_map.name,
         },
       ],

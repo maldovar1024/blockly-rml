@@ -119,9 +119,9 @@ class RMLGenerator extends Generator {
 
   /** 生成谓语-宾语映射 */
   predicate_object_maps: StatementGenerator = block => {
-    const { predMapsStat, ObjMapsStat } = names.predicate_object_maps;
+    const { predMapsStat, objMapsStat } = names.predicate_object_maps;
     const predicate_maps = this.statementToCode(block, predMapsStat);
-    const object_maps = this.statementToCode(block, ObjMapsStat);
+    const object_maps = this.statementToCode(block, objMapsStat);
     const content = this.indentLines(`${predicate_maps};\n${object_maps}\n`);
     return `rr:predicateObjectMap [\n${content}]`;
   };

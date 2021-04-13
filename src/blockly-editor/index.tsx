@@ -37,7 +37,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
         [predicate_object_maps.predMapsStat]: {
           type: predicate_map.name,
         },
-        [predicate_object_maps.ObjMapsStat]: {
+        [predicate_object_maps.objMapsStat]: {
           type: object_map.name,
           fields: {
             [object_map.typeDrop]: 'reference',

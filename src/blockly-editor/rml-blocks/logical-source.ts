@@ -35,6 +35,7 @@ class LogicalSourceBlock implements BlockSvgInterface {
   init = function (this: LogicalSourceThis) {
     const { filetypeDrop } = logical_source;
     const filetypeField = this.getField(filetypeDrop) as FieldDropdown;
+    this.updateShape(filetypeField.getValue());
     filetypeField.setValidator((newValue: LogicalSourceType) => {
       const oldValue = filetypeField.getValue() as LogicalSourceType;
       if (oldValue !== newValue) {

@@ -17,8 +17,8 @@ class ObjectMapBlock implements BlockSvgInterface {
         type: 'field_dropdown',
         name: object_map.typeDrop,
         options: [
-          ['constant', 'constant'],
           ['reference', 'reference'],
+          ['constant', 'constant'],
           ['join', 'join'],
         ],
       },
@@ -30,9 +30,9 @@ class ObjectMapBlock implements BlockSvgInterface {
   };
 
   init = function (this: ObjectMapThis) {
-    this.constructMapValueDummy();
     const { typeDrop } = object_map;
     const filetypeField = this.getField(typeDrop) as FieldDropdown;
+    this.updateShape(filetypeField.getValue());
     filetypeField.setValidator((newValue: ObjectMapType) => {
       const oldValue = filetypeField.getValue() as ObjectMapType;
       if (oldValue !== newValue) {
@@ -57,6 +57,7 @@ class ObjectMapBlock implements BlockSvgInterface {
 
   updateShape = function (this: ObjectMapThis, newValue: ObjectMapType) {
     const {
+      mapValue,
       mapValueDummy,
       datatypeDummy,
       datatypeLabel,
@@ -67,12 +68,18 @@ class ObjectMapBlock implements BlockSvgInterface {
       joinConditionLabel,
       joinConditionStat,
     } = object_map;
+
     if (newValue !== 'join') {
       this.removeInput(parentMapDummy, true);
       this.removeInput(joinConditionStat, true);
-      if (this.getInput(mapValueDummy) === null) {
-        this.constructMapValueDummy();
-      }
+      this.removeInput(mapValueDummy, true);
+
+      type Label = `${typeof newValue}Label`;
+      this.appendDummyInput(mapValueDummy)
+        .appendField(object_map[`${newValue}Label` as Label])
+        .appendField(new FieldTextInput(''), mapValue);
+
+      // 处理 datatype 输入
       if (newValue === 'constant') {
         this.removeInput(datatypeDummy, true);
       } else if (
@@ -85,6 +92,8 @@ class ObjectMapBlock implements BlockSvgInterface {
       }
     } else if (this.getInput(parentMapDummy) === null) {
       this.removeInput(mapValueDummy, true);
+      this.removeInput(datatypeDummy, true);
+      // 创建 parent_map 和 join_conditions 输入
       this.appendDummyInput(parentMapDummy)
         .appendField(`${parentMapLabel} <#`)
         .appendField(new FieldTextInput(''), parentMapValue)
@@ -93,13 +102,6 @@ class ObjectMapBlock implements BlockSvgInterface {
         .setCheck('join_condition')
         .appendField(joinConditionLabel);
     }
-  };
-
-  constructMapValueDummy = function (this: ObjectMapThis) {
-    const { mapValue, mapValueDummy, mapValueLabel } = object_map;
-    this.appendDummyInput(mapValueDummy)
-      .appendField(mapValueLabel)
-      .appendField(new FieldTextInput(''), mapValue);
   };
 }
 

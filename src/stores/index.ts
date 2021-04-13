@@ -8,10 +8,12 @@ import {
 import { combineReducers, createStore } from 'redux';
 import results from './results';
 import source from './source';
+import editorCommand from './editor-command';
 
 const reducers = combineReducers({
   source: source.reducer,
   results: results.reducer,
+  editorCommand: editorCommand.reducer,
 });
 
 const store = createStore(reducers);
@@ -28,3 +30,4 @@ export const useAppSelector: TypedUseSelectorHook<RootStore> = useSelector;
 
 export const { addSource, removeSource } = source.actions;
 export const { setMappingCode } = results.actions;
+export const { createBlock } = editorCommand.actions;

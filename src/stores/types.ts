@@ -33,3 +33,13 @@ export interface ResultStore {
   /** 生成的映射代码 */
   code: string;
 }
+
+/** 传递给 BlocklyEditor 的命令参数 */
+export interface CreateBlockPayload {
+  filename: string;
+  reference: string;
+}
+
+export interface EditorCommandStore extends CreateBlockPayload {
+  id: string;
+}

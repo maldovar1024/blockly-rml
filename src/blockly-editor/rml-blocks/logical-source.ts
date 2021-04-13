@@ -8,9 +8,9 @@ const { logical_source } = names;
 type LogicalSourceThis = BlockThis<LogicalSourceBlock>;
 
 class LogicalSourceBlock implements BlockSvgInterface {
-  name = 'logical_source';
+  name = logical_source.name;
   json = {
-    type: 'logical_source',
+    type: logical_source.name,
     message0: 'source %1 . %2',
     args0: [
       {
@@ -27,7 +27,7 @@ class LogicalSourceBlock implements BlockSvgInterface {
         ],
       },
     ],
-    output: 'logical_source',
+    output: logical_source.name,
     colour: 30,
     tooltip: '定义三元组映射的逻辑源',
   };

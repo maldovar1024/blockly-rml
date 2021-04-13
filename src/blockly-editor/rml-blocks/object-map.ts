@@ -8,14 +8,14 @@ const { object_map } = names;
 type ObjectMapThis = BlockThis<ObjectMapBlock>;
 
 class ObjectMapBlock implements BlockSvgInterface {
-  name = 'object_map';
+  name = object_map.name;
   json = {
-    type: this.name,
+    type: object_map.name,
     message0: 'Map Type %1',
     args0: [
       {
         type: 'field_dropdown',
-        name: names.object_map.typeDrop,
+        name: object_map.typeDrop,
         options: [
           ['constant', 'constant'],
           ['reference', 'reference'],
@@ -23,8 +23,8 @@ class ObjectMapBlock implements BlockSvgInterface {
         ],
       },
     ],
-    previousStatement: this.name,
-    nextStatement: this.name,
+    previousStatement: object_map.name,
+    nextStatement: object_map.name,
     colour: 180,
     tooltip: '定义三元组映射的宾语映射',
   };

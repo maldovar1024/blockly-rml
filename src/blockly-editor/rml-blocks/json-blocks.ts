@@ -4,20 +4,20 @@ import names from './names';
 
 export default <BlockSvgInterface[]>[
   {
-    name: 'triple_maps',
+    name: names.triple_maps.name,
     json: {
-      type: 'triple_maps',
+      type: names.triple_maps.name,
       message0: 'Prefixes %1 Triple Maps %2',
       args0: [
         {
           type: 'input_statement',
           name: names.triple_maps.prefixesStat,
-          check: 'prefix',
+          check: names.prefix.name,
         },
         {
           type: 'input_statement',
           name: names.triple_maps.tripleMapsStat,
-          check: 'triple_map',
+          check: names.triple_map.name,
         },
       ],
       colour: 0,
@@ -25,9 +25,9 @@ export default <BlockSvgInterface[]>[
     },
   },
   {
-    name: 'prefix',
+    name: names.prefix.name,
     json: {
-      type: 'prefix',
+      type: names.prefix.name,
       message0: '%1 : %2',
       args0: [
         {
@@ -41,16 +41,16 @@ export default <BlockSvgInterface[]>[
           text: '',
         },
       ],
-      previousStatement: 'prefix',
-      nextStatement: 'prefix',
+      previousStatement: names.prefix.name,
+      nextStatement: names.prefix.name,
       colour: 230,
       tooltip: '定义映射中用到的前缀',
     },
   },
   {
-    name: 'triple_map',
+    name: names.triple_map.name,
     json: {
-      type: 'triple_map',
+      type: names.triple_map.name,
       message0: '<# %1 >',
       args0: [
         {
@@ -64,7 +64,7 @@ export default <BlockSvgInterface[]>[
         {
           type: 'input_value',
           name: names.triple_map.sourceInput,
-          check: 'logical_source',
+          check: names.logical_source.name,
         },
       ],
       message2: 'Subject Map %1',
@@ -72,7 +72,7 @@ export default <BlockSvgInterface[]>[
         {
           type: 'input_value',
           name: names.triple_map.subjectMapInput,
-          check: 'subject_map',
+          check: names.subject_map.name,
         },
       ],
       message3: 'Predicate Object Maps %1',
@@ -80,19 +80,19 @@ export default <BlockSvgInterface[]>[
         {
           type: 'input_statement',
           name: names.triple_map.predObjMapsStat,
-          check: 'predicate_object_maps',
+          check: names.predicate_object_maps.name,
         },
       ],
-      previousStatement: 'triple_map',
-      nextStatement: 'triple_map',
+      previousStatement: names.triple_map.name,
+      nextStatement: names.triple_map.name,
       colour: 210,
       tooltip: '定义一个三元组映射',
     },
   },
   {
-    name: 'subject_map',
+    name: names.subject_map.name,
     json: {
-      type: 'subject_map',
+      type: names.subject_map.name,
       message0: 'template %1 class %2',
       args0: [
         {
@@ -103,18 +103,18 @@ export default <BlockSvgInterface[]>[
         {
           type: 'input_statement',
           name: names.subject_map.classesStat,
-          check: 'rr_class',
+          check: names.rr_class.name,
         },
       ],
-      output: 'subject_map',
+      output: names.subject_map.name,
       colour: 60,
       tooltip: '定义三元组映射的主语映射',
     },
   },
   {
-    name: 'rr_class',
+    name: names.rr_class.name,
     json: {
-      type: 'rr_class',
+      type: names.rr_class.name,
       message0: 'class %1',
       args0: [
         {
@@ -123,39 +123,39 @@ export default <BlockSvgInterface[]>[
           text: ' ',
         },
       ],
-      previousStatement: 'rr_class',
-      nextStatement: 'rr_class',
+      previousStatement: names.rr_class.name,
+      nextStatement: names.rr_class.name,
       colour: 90,
       tooltip: '定义主语映射的 rr:class 属性',
     },
   },
   {
-    name: 'predicate_object_maps',
+    name: names.predicate_object_maps.name,
     json: {
-      type: 'predicate_object_maps',
+      type: names.predicate_object_maps.name,
       message0: 'Predicate Maps %1 Object Maps %2',
       args0: [
         {
           type: 'input_statement',
           name: names.predicate_object_maps.predMapsStat,
-          check: 'predicate_map',
+          check: names.predicate_map.name,
         },
         {
           type: 'input_statement',
           name: names.predicate_object_maps.ObjMapsStat,
-          check: 'object_map',
+          check: names.object_map.name,
         },
       ],
-      previousStatement: 'predicate_object_maps',
-      nextStatement: 'predicate_object_maps',
+      previousStatement: names.predicate_object_maps.name,
+      nextStatement: names.predicate_object_maps.name,
       colour: 120,
       tooltip: '定义三元组映射的谓语-宾语映射',
     },
   },
   {
-    name: 'predicate_map',
+    name: names.predicate_map.name,
     json: {
-      type: 'predicate_map',
+      type: names.predicate_map.name,
       message0: '%1 %2',
       args0: [
         {
@@ -172,16 +172,16 @@ export default <BlockSvgInterface[]>[
           text: ' ',
         },
       ],
-      previousStatement: 'predicate_map',
-      nextStatement: 'predicate_map',
+      previousStatement: names.predicate_map.name,
+      nextStatement: names.predicate_map.name,
       colour: 150,
       tooltip: '定义三元组映射的谓语映射',
     },
   },
   {
-    name: 'join_condition',
+    name: names.join_condition.name,
     json: {
-      type: 'join_condition',
+      type: names.join_condition.name,
       message0: 'Child %1',
       args0: [
         {
@@ -198,8 +198,8 @@ export default <BlockSvgInterface[]>[
           text: '',
         },
       ],
-      previousStatement: 'join_condition',
-      nextStatement: 'join_condition',
+      previousStatement: names.join_condition.name,
+      nextStatement: names.join_condition.name,
       colour: 270,
       tooltip: '定义连接条件',
     },

@@ -116,7 +116,7 @@ class SourceManager extends Component<SourceManagerProps, SourceManagerState> {
         {files.map(file => (
           <TabPane key={file.filename} tab={file.filename}>
             {file.filetype === Filetype.CSV ? (
-              <CSVViewer structure={file.structure} />
+              <CSVViewer filename={file.filename} structure={file.structure} />
             ) : (
               <JSONViewer structure={file.structure} />
             )}

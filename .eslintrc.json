@@ -20,7 +20,7 @@
     "import/resolver": {
       "alias": {
         "map": [["@", "./src"], ["@stores", "./src/stores"]],
-        "extensions": [".ts", ".tsx"]
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
       }
     }
   },

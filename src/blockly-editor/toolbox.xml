@@ -21,7 +21,7 @@
     <field name="value"></field>
   </block>
   <block type="object_map">
-    <field name="type">constant</field>
+    <field name="type">reference</field>
     <field name="value"></field>
   </block>
   <block type="join_condition">

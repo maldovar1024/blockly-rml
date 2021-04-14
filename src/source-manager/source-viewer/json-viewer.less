@@ -1,0 +1,9 @@
+.react-json-view {
+  user-select: none;
+
+  // 对象的“键”，排除可展开的项
+  .object-key:not(.icon-container + span > span) {
+    cursor: text;
+    user-select: text;
+  }
+}

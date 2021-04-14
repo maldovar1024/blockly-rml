@@ -1,6 +1,7 @@
 import { JSONSource } from '@stores/types';
 import { FC } from 'react';
 import ReactJson from 'react-json-view';
+import './json-viewer.less';
 
 export interface JSONViewerProps {
   structure: JSONSource['structure'];

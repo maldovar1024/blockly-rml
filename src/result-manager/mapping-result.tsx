@@ -4,7 +4,7 @@ import { fetchMappingResult } from '@/stores/results';
 import { FailedMappingResult, MappingResultStatus } from '@/stores/types';
 import { CaretRightOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
 const MappingResult: FC = () => {
   const mappingResult = useAppSelector(store => store.results.mappingResult);
@@ -23,9 +23,9 @@ const MappingResult: FC = () => {
   const { status } = mappingResult;
 
   const dispatch = useAppDispatch();
-  const executeMapping = async () => {
+  const executeMapping = useCallback(() => {
     dispatch(fetchMappingResult());
-  };
+  }, [dispatch]);
 
   const viewerClass =
     status === MappingResultStatus.successful ? 'result-viewer' : 'message';

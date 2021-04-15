@@ -2,6 +2,7 @@
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { fetchMappingResult } from '@/stores/results';
 import { FailedMappingResult, MappingResultStatus } from '@/stores/types';
+import { CaretRightOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { FC } from 'react';
 
@@ -10,24 +11,34 @@ const MappingResult: FC = () => {
 
   let content;
   if (mappingResult.status === MappingResultStatus.initial) {
-    content = '点击运行执行映射';
+    content = '点击 ▶ 执行映射';
   } else if (mappingResult.status === MappingResultStatus.pending) {
-    content = '执行中...';
+    content = <LoadingOutlined />;
   } else if (mappingResult.status === MappingResultStatus.successful) {
     content = mappingResult.result;
   } else {
     content = (mappingResult as FailedMappingResult).message;
   }
 
+  const { status } = mappingResult;
+
   const dispatch = useAppDispatch();
   const executeMapping = async () => {
     dispatch(fetchMappingResult());
   };
 
+  const viewerClass =
+    status === MappingResultStatus.successful ? 'result-viewer' : 'message';
+
   return (
     <>
-      <Button onClick={executeMapping}>RUN</Button>
-      <div className="result">{content}</div>
+      <Button
+        className="execute-btn"
+        disabled={status === MappingResultStatus.pending}
+        icon={<CaretRightOutlined />}
+        onClick={executeMapping}
+      ></Button>
+      <div className={viewerClass}>{content}</div>
     </>
   );
 };

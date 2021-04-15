@@ -1,3 +1,4 @@
+import { configureStore } from '@reduxjs/toolkit';
 import {
   Connect,
   connect as _connect,
@@ -5,18 +6,20 @@ import {
   useDispatch,
   useSelector,
 } from 'react-redux';
-import { combineReducers, createStore } from 'redux';
+import { combineReducers } from 'redux';
+import editorCommand from './editor-command';
 import results from './results';
 import source from './source';
-import editorCommand from './editor-command';
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   source: source.reducer,
   results: results.reducer,
   editorCommand: editorCommand.reducer,
 });
 
-const store = createStore(reducers);
+const store = configureStore({
+  reducer: rootReducer,
+});
 
 export default store;
 

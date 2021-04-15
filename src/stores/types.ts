@@ -28,10 +28,39 @@ export interface JSONSource extends BaseSource {
 
 export type SourceRecord = CSVSource | JSONSource;
 
+export enum MappingResultStatus {
+  initial,
+  pending,
+  successful,
+  connectionFailed,
+  executionFailed,
+}
+
+interface BasicMappingResult {
+  status: MappingResultStatus.initial | MappingResultStatus.pending;
+}
+
+export interface SuccessfulMappingResult {
+  status: MappingResultStatus.successful;
+  result: string;
+}
+
+export interface FailedMappingResult {
+  status:
+    | MappingResultStatus.connectionFailed
+    | MappingResultStatus.executionFailed;
+  message: string;
+}
+
 /** 与生成的映射代码、映射的执行结果相关的类型定义 */
 export interface ResultStore {
   /** 生成的映射代码 */
   code: string;
+  /** 映射执行的结果 */
+  mappingResult:
+    | BasicMappingResult
+    | SuccessfulMappingResult
+    | FailedMappingResult;
 }
 
 /** 传递给 BlocklyEditor 的命令参数 */

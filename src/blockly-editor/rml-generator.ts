@@ -153,8 +153,8 @@ class RMLGenerator extends Generator {
         return `rr:object ${value}`;
       case 'reference': {
         const datatype = block.getFieldValue(datatypeValue);
-        const datatypeMap = datatype ? `  rr:datatype ${datatype}\n` : '';
-        return `rr:objectMap [\n  rml:reference "${value}"\n${datatypeMap}]`;
+        const datatypeMap = datatype ? `;\n  rr:datatype ${datatype}\n` : '\n';
+        return `rr:objectMap [\n  rml:reference "${value}"${datatypeMap}]`;
       }
       case 'join': {
         const parentMap = block.getFieldValue(parentMapValue);

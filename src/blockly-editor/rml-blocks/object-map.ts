@@ -31,10 +31,10 @@ class ObjectMapBlock implements BlockSvgInterface {
 
   init = function (this: ObjectMapThis) {
     const { typeDrop } = object_map;
-    const filetypeField = this.getField(typeDrop) as FieldDropdown;
-    this.updateShape(filetypeField.getValue());
-    filetypeField.setValidator((newValue: ObjectMapType) => {
-      const oldValue = filetypeField.getValue() as ObjectMapType;
+    const mapTypeField = this.getField(typeDrop) as FieldDropdown;
+    this.updateShape(mapTypeField.getValue());
+    mapTypeField.setValidator((newValue: ObjectMapType) => {
+      const oldValue = mapTypeField.getValue() as ObjectMapType;
       if (oldValue !== newValue) {
         this.updateShape(newValue);
       }
@@ -50,9 +50,11 @@ class ObjectMapBlock implements BlockSvgInterface {
 
   domToMutation = function (this: ObjectMapThis, element: Element) {
     const { typeDrop } = object_map;
-    const filetype = (element.getAttribute(typeDrop) ??
+    const mapType = (element.getAttribute(typeDrop) ??
       'constant') as ObjectMapType;
-    this.updateShape(filetype);
+    if (mapType !== this.getFieldValue(typeDrop)) {
+      this.updateShape(mapType);
+    }
   };
 
   updateShape = function (this: ObjectMapThis, newValue: ObjectMapType) {

@@ -55,7 +55,9 @@ class LogicalSourceBlock implements BlockSvgInterface {
     const { filetypeDrop } = logical_source;
     const filetype = (element.getAttribute(filetypeDrop) ??
       'csv') as LogicalSourceType;
-    this.updateShape(filetype);
+    if (filetype !== this.getFieldValue(filetypeDrop)) {
+      this.updateShape(filetype);
+    }
   };
 
   updateShape = function (

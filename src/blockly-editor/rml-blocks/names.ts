@@ -6,7 +6,7 @@
  * `input_value` 使用 `Input` 后缀 \
  * `input_statement` 使用 `Stat` 后缀
  */
-const names = Object.freeze({
+const names = {
   triple_maps: {
     name: 'triple_maps',
     prefixesStat: 'prefixes',
@@ -75,6 +75,6 @@ const names = Object.freeze({
     childRefValue: 'child_ref',
     parentRefValue: 'parent_ref',
   },
-});
+} as const;
 
 export default names;

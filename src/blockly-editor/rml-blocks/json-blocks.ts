@@ -12,7 +12,7 @@ export default <BlockSvgInterface[]>[
         {
           type: 'input_statement',
           name: names.triple_maps.prefixesStat,
-          check: names.prefix.name,
+          check: [names.base_prefix.name, names.prefix.name],
         },
         {
           type: 'input_statement',
@@ -41,8 +41,26 @@ export default <BlockSvgInterface[]>[
           text: '',
         },
       ],
-      previousStatement: names.prefix.name,
-      nextStatement: names.prefix.name,
+      previousStatement: [names.base_prefix.name, names.prefix.name],
+      nextStatement: [names.base_prefix.name, names.prefix.name],
+      colour: 230,
+      tooltip: '定义映射中用到的前缀',
+    },
+  },
+  {
+    name: names.base_prefix.name,
+    json: {
+      type: names.base_prefix.name,
+      message0: '@base %1',
+      args0: [
+        {
+          type: 'field_input',
+          name: names.base_prefix.uriValue,
+          text: '',
+        },
+      ],
+      previousStatement: [names.base_prefix.name, names.prefix.name],
+      nextStatement: [names.base_prefix.name, names.prefix.name],
       colour: 230,
       tooltip: '定义映射中用到的前缀',
     },

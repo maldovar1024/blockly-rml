@@ -54,6 +54,12 @@ class RMLGenerator extends Generator {
     return `@prefix ${prefix}: ${fullValue}.\n`;
   };
 
+  base_prefix: StatementGenerator = block => {
+    const { uriValue } = names.base_prefix;
+    const uri = block.getFieldValue(uriValue);
+    return `@base ${uri}.\n`;
+  };
+
   /** 生成一个三元组映射 */
   triple_map: StatementGenerator = block => {
     const {
@@ -186,6 +192,7 @@ class RMLGenerator extends Generator {
 
   private static delimiterMap: Record<string, string | undefined> = {
     prefix: '',
+    base_prefix: '',
     triple_map: '\n\n',
   };
 

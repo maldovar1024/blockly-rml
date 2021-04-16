@@ -3,6 +3,9 @@
     <field name="prefix"></field>
     <field name="value"></field>
   </block>
+  <block type="base_prefix">
+    <field name="base_uri"></field>
+  </block>
   <block type="triple_map">
     <field name="map_name"></field>
   </block>

@@ -13,9 +13,8 @@
                 <field name="prefix">rr</field>
                 <field name="value">&lt;http://www.w3.org/ns/r2rml#&gt;</field>
                 <next>
-                  <block type="prefix">
-                    <field name="prefix">ex</field>
-                    <field name="value">&lt;http://example.com/ns#&gt;</field>
+                  <block type="base_prefix">
+                    <field name="base_uri">&lt;http://example.com/ns#&gt;</field>
                   </block>
                 </next>
               </block>

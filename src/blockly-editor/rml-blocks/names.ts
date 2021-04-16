@@ -17,6 +17,10 @@ const names = Object.freeze({
     prefixValue: 'prefix',
     fullValueValue: 'value',
   },
+  base_prefix: {
+    name: 'base_prefix',
+    uriValue: 'base_uri',
+  },
   logical_source: {
     name: 'logical_source',
     filenameValue: 'filename',

@@ -1,5 +1,5 @@
+import { connectionErrorMsg, getMappingResult } from '@/api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
 import type { RootStore } from '.';
 import {
   FailedMappingResult,
@@ -20,10 +20,6 @@ interface ThunkApiType {
   rejectValue: FailedMappingResult;
 }
 
-interface ExecuteResponseBody {
-  output: string;
-}
-
 /** 获取映射结果的中间件 */
 export const fetchMappingResult = createAsyncThunk<
   SuccessfulMappingResult,
@@ -36,28 +32,15 @@ export const fetchMappingResult = createAsyncThunk<
     sources[filename] = content;
   }
 
-  try {
-    const response = await axios.post<ExecuteResponseBody>('/api/execute', {
-      rml,
-      sources,
-    });
-    return {
-      status: MappingResultStatus.successful,
-      result: response.data.output,
-    };
-  } catch (error) {
-    const err = error as AxiosError;
-    if (!err.response || err.response.statusText.search('Proxy error')) {
-      return rejectWithValue({
-        status: MappingResultStatus.connectionFailed,
-        message: '无法连接到服务器',
-      });
-    }
-    return rejectWithValue({
-      status: MappingResultStatus.executionFailed,
-      message: '执行出错，请检查映射代码是否正确，以及代码与导入的文件是否对应',
-    });
+  const response = await getMappingResult({
+    rml,
+    sources,
+  });
+  if (response.status === MappingResultStatus.successful) {
+    return response;
   }
+
+  return rejectWithValue(response);
 });
 
 const results = createSlice({
@@ -81,7 +64,7 @@ const results = createSlice({
     builder.addCase(fetchMappingResult.rejected, (state, { payload }) => {
       state.mappingResult = {
         status: MappingResultStatus.connectionFailed,
-        message: '无法连接到服务器',
+        message: connectionErrorMsg,
         ...payload,
       };
     });

@@ -49,19 +49,11 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
   }
 
   private blocklyOptions: BlocklyOptions = {
-    comments: true,
     collapse: true,
-    grid: {
-      spacing: 20,
-      length: 1,
-      colour: '#888',
-      snap: true,
-    },
     move: {
       scrollbars: true,
     },
     sounds: false,
-    trashcan: true,
     toolbox,
   };
 

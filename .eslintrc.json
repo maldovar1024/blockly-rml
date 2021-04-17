@@ -19,7 +19,10 @@
     },
     "import/resolver": {
       "alias": {
-        "map": [["@", "./src"], ["@stores", "./src/stores"]],
+        "map": [
+          ["@", "./src"],
+          ["@stores", "./src/stores"]
+        ],
         "extensions": [".ts", ".tsx", ".js", ".jsx"]
       }
     }
@@ -40,7 +43,8 @@
     "@typescript-eslint/explicit-module-boundary-types": ["off"],
     "@typescript-eslint/no-empty-function": ["off"],
     "react/prop-types": ["off"],
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "import/no-unresolved": ["error", { "ignore": ["^n3$"] }]
   },
   "reportUnusedDisableDirectives": true
 }

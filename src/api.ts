@@ -7,6 +7,7 @@ import {
 export interface MappingRequestBody {
   rml: string;
   sources: Record<string, string>;
+  asQuads: boolean;
 }
 
 export const connectionErrorMsg = '无法连接到服务器';
@@ -30,7 +31,7 @@ export async function getMappingResult(
       case 200:
         return {
           status: MappingResultStatus.successful,
-          result: await response.text(),
+          result: (await response.json()).output,
         };
       case 400:
         return {

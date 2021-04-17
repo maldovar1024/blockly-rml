@@ -1,3 +1,5 @@
+import type { Quad } from 'n3';
+
 /** 与文件源相关的类型定义 */
 export enum Filetype {
   CSV = 'application/vnd.ms-excel',
@@ -42,7 +44,7 @@ interface BasicMappingResult {
 
 export interface SuccessfulMappingResult {
   status: MappingResultStatus.successful;
-  result: string;
+  result: Quad[];
 }
 
 export interface FailedMappingResult {

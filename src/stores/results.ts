@@ -35,6 +35,7 @@ export const fetchMappingResult = createAsyncThunk<
   const response = await getMappingResult({
     rml,
     sources,
+    asQuads: true,
   });
   if (response.status === MappingResultStatus.successful) {
     return response;

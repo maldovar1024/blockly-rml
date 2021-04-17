@@ -57,7 +57,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     toolbox,
   };
 
-  private unregisteredMenus = ['workspaceDelete'];
+  private unregisteredMenus = ['workspaceDelete', 'blockInline'];
 
   private onWorkspaceChange: WorkspaceChangeCallback = evt => {
     this.props.setMappingCode(

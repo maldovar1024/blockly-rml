@@ -1,10 +1,10 @@
 import { Block, BlockSvg, Generator, Workspace } from 'blockly';
-import names from './rml-blocks/names';
 import {
   LogicalSourceType,
+  names,
   ObjectMapType,
   PredicateMapType,
-} from './rml-blocks/types';
+} from './rml-blocks';
 
 interface ExpressionGenerator {
   (block: BlockSvg): [string | number, number];

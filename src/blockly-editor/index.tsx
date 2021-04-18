@@ -9,16 +9,16 @@ import { Component, createRef } from 'react';
 import { ConnectedProps } from 'react-redux';
 import initialWorkspace from './initial-workspace.xml';
 import {
-  staticWorkspaceMenuOptions,
   createImportWorkspaceMenuOption,
+  staticWorkspaceMenuOptions,
 } from './menu-options';
 import {
   createBlock,
   jsonBlocks,
   LogicalSourceBlock,
+  names,
   ObjectMapBlock,
 } from './rml-blocks';
-import names from './rml-blocks/names';
 import RMLGenerator from './rml-generator';
 import toolbox from './toolbox.xml';
 

@@ -26,6 +26,22 @@ class RMLGenerator extends Generator {
     return this._tripleMapNames;
   };
 
+  /**
+   * 从 XML 导入块时使用，收集文档中的额外信息，便于设置下拉框的选项
+   * @param root 导入的 XML 文档的根元素
+   */
+  collectInfoFromXml = (root: Element) => {
+    this._tripleMapNames = new Set();
+    root
+      .querySelectorAll('block[type=triple_map] > field[name=map_name]')
+      .forEach(element => {
+        const content = element.textContent;
+        if (content) {
+          this._tripleMapNames.add(content);
+        }
+      });
+  };
+
   /** 表达式的优先级 */
   private static PRECEDENCE = 0;
   /** 实际使用的缩进 */

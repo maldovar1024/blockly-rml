@@ -6,13 +6,23 @@ import { Component, createRef } from 'react';
 import { ConnectedProps } from 'react-redux';
 import initialWorkspace from './initial-workspace.xml';
 import customMenuOptions from './menu-options';
-import rmlBlocks from './rml-blocks';
-import { createBlock } from './rml-blocks/block-creator';
+import {
+  createBlock,
+  jsonBlocks,
+  LogicalSourceBlock,
+  ObjectMapBlock,
+} from './rml-blocks';
 import names from './rml-blocks/names';
 import RMLGenerator from './rml-generator';
 import toolbox from './toolbox.xml';
 
 const rmlGenerator = new RMLGenerator();
+
+const rmlBlocks = [
+  ...jsonBlocks,
+  new LogicalSourceBlock(),
+  new ObjectMapBlock(),
+];
 
 class BlocklyEditor extends Component<BlocklyEditorProps> {
   private ref = createRef<BlocklyContainer>();

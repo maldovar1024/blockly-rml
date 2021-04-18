@@ -75,4 +75,4 @@ class LogicalSourceBlock implements BlockSvgInterface {
   };
 }
 
-export default new LogicalSourceBlock();
+export default LogicalSourceBlock;

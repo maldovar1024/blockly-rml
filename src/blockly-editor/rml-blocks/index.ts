@@ -1,10 +1,5 @@
-import { BlockSvgInterface } from '@/blockly-container/define-block';
-import jsonBlocks from './json-blocks';
-import logicalSourceBlock from './logical-source';
-import objectMap from './object-map';
-
-export default <BlockSvgInterface[]>[
-  ...jsonBlocks,
-  logicalSourceBlock,
-  objectMap,
-];
+export { default as createBlock } from './block-creator';
+export type { BlockShape } from './block-creator';
+export { default as jsonBlocks } from './json-blocks';
+export { default as LogicalSourceBlock } from './logical-source';
+export { default as ObjectMapBlock } from './object-map';

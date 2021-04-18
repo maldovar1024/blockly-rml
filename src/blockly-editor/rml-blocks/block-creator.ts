@@ -12,7 +12,7 @@ export interface BlockShape {
   statements?: Record<string, BlockShape>;
 }
 
-export function createBlock(
+export default function createBlock(
   workspace: WorkspaceSvg,
   block: BlockShape
 ): BlockSvg {

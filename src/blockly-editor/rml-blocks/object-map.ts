@@ -107,4 +107,4 @@ class ObjectMapBlock implements BlockSvgInterface {
   };
 }
 
-export default new ObjectMapBlock();
+export default ObjectMapBlock;

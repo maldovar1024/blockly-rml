@@ -1,11 +1,17 @@
 import BlocklyContainer from '@/blockly-container';
-import { WorkspaceChangeCallback } from '@/blockly-container/types';
+import {
+  CustomMenuOptions,
+  WorkspaceChangeCallback,
+} from '@/blockly-container/types';
 import { connect, setMappingCode } from '@/stores';
 import { BlocklyOptions, Events } from 'blockly';
 import { Component, createRef } from 'react';
 import { ConnectedProps } from 'react-redux';
 import initialWorkspace from './initial-workspace.xml';
-import customMenuOptions from './menu-options';
+import {
+  staticWorkspaceMenuOptions,
+  createImportWorkspaceMenuOption,
+} from './menu-options';
 import {
   createBlock,
   jsonBlocks,
@@ -16,24 +22,16 @@ import names from './rml-blocks/names';
 import RMLGenerator from './rml-generator';
 import toolbox from './toolbox.xml';
 
-const rmlGenerator = new RMLGenerator();
-
-const rmlBlocks = [
-  ...jsonBlocks,
-  new LogicalSourceBlock(),
-  new ObjectMapBlock(rmlGenerator.getTripleMapNames),
-];
-
 class BlocklyEditor extends Component<BlocklyEditorProps> {
   private ref = createRef<BlocklyContainer>();
 
   componentDidUpdate(prevProps: BlocklyEditorProps) {
     if (prevProps.newBlockParam.id !== this.props.newBlockParam.id) {
-      this.createMap();
+      this.createPredicateObjectMap();
     }
   }
 
-  private createMap() {
+  private createPredicateObjectMap() {
     const editor = this.ref.current;
     if (!editor) {
       return;
@@ -67,11 +65,30 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     toolbox,
   };
 
+  /** 代码生成器 */
+  private rmlGenerator = new RMLGenerator();
+
+  /** 自定义块 */
+  private rmlBlocks = [
+    ...jsonBlocks,
+    new LogicalSourceBlock(),
+    new ObjectMapBlock(this.rmlGenerator.getTripleMapNames),
+  ];
+
+  /** 自定义右键菜单 */
+  private customMenuOptions: CustomMenuOptions = {
+    workspaceMenuItems: [
+      ...staticWorkspaceMenuOptions,
+      createImportWorkspaceMenuOption(this.rmlGenerator.collectInfoFromXml),
+    ],
+  };
+
+  /** 要注销的默认菜单 */
   private unregisteredMenus = ['workspaceDelete', 'blockInline'];
 
   private onWorkspaceChange: WorkspaceChangeCallback = evt => {
     this.props.setMappingCode(
-      rmlGenerator.workspaceToCode(evt.getEventWorkspace_())
+      this.rmlGenerator.workspaceToCode(evt.getEventWorkspace_())
     );
   };
 
@@ -85,8 +102,8 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
       <BlocklyContainer
         ref={this.ref}
         blocklyOptions={this.blocklyOptions}
-        customBlocks={rmlBlocks}
-        customMenuOptions={customMenuOptions}
+        customBlocks={this.rmlBlocks}
+        customMenuOptions={this.customMenuOptions}
         unregisteredMenuItems={this.unregisteredMenus}
         initialWorkspace={initialWorkspace}
         workspaceChangeCallbacks={this.workspaceChangeCallbacks}

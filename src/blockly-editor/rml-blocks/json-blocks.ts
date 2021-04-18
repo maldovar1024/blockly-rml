@@ -111,17 +111,20 @@ export default <BlockSvgInterface[]>[
     name: names.subject_map.name,
     json: {
       type: names.subject_map.name,
-      message0: 'template %1 class %2',
+      message0: 'template %1',
       args0: [
         {
           type: 'field_input',
-          name: names.subject_map.templateValue,
+          name: 'template',
           text: ' ',
         },
+      ],
+      message1: 'class %1',
+      args1: [
         {
           type: 'input_statement',
-          name: names.subject_map.classesStat,
-          check: names.rr_class.name,
+          name: 'classes',
+          check: 'rr_class',
         },
       ],
       output: names.subject_map.name,

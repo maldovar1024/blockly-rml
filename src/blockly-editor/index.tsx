@@ -10,6 +10,7 @@ import { ConnectedProps } from 'react-redux';
 import initialWorkspace from './initial-workspace.xml';
 import {
   createImportWorkspaceMenuOption,
+  staticBlockMenuOptions,
   staticWorkspaceMenuOptions,
 } from './menu-options';
 import {
@@ -81,10 +82,15 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
       ...staticWorkspaceMenuOptions,
       createImportWorkspaceMenuOption(this.rmlGenerator.collectInfoFromXml),
     ],
+    blockMenuItems: [...staticBlockMenuOptions],
   };
 
   /** 要注销的默认菜单 */
-  private unregisteredMenus = ['workspaceDelete', 'blockInline'];
+  private unregisteredMenus = [
+    'workspaceDelete',
+    'blockInline',
+    'blockCollapseExpand',
+  ];
 
   private onWorkspaceChange: WorkspaceChangeCallback = evt => {
     this.props.setMappingCode(

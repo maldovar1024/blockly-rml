@@ -1,9 +1,16 @@
-import { WorkspaceMenuItem } from '@/blockly-container/types';
+import { BlockMenuItem, WorkspaceMenuItem } from '@/blockly-container/types';
 import { downloadFile, uploadAndReadTextFile } from '@/utils';
 import { message } from 'antd';
 import { Xml } from 'blockly';
 import initialWorkspace from './initial-workspace.xml';
+import { names } from './rml-blocks';
 import RMLGenerator from './rml-generator';
+
+const unCollapsibleBlock = new Set<string>([
+  names.triple_maps.name,
+  names.prefix.name,
+  names.base_prefix.name,
+]);
 
 export interface MenuOptionCreatorOptions {
   rmlGenerator: RMLGenerator;
@@ -34,6 +41,25 @@ export const staticWorkspaceMenuOptions: WorkspaceMenuItem[] = [
     },
     id: 'export_workspace',
     weight: 100,
+  },
+];
+
+export const staticBlockMenuOptions: BlockMenuItem[] = [
+  {
+    displayText({ block }) {
+      return block.isCollapsed() ? '展开块' : '折叠块';
+    },
+    preconditionFn({ block }) {
+      if (!block.isInFlyout && !unCollapsibleBlock.has(block.type)) {
+        return 'enabled';
+      }
+      return 'hidden';
+    },
+    callback({ block }) {
+      block.setCollapsed(!block.isCollapsed());
+    },
+    id: 'collapse-expand-block',
+    weight: 4,
   },
 ];
 

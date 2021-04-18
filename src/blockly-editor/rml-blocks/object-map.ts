@@ -1,4 +1,4 @@
-import { BlockSvgInterface } from '@/blockly-container/define-block';
+import { BlockSvgInterface } from '@/blockly-container';
 import { FieldDropdown, FieldTextInput } from 'blockly';
 import names from './names';
 import { BlockThis, ObjectMapType } from './types';

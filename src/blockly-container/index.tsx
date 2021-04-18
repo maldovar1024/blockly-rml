@@ -10,6 +10,8 @@ import type {
   WorkspaceChangeCallback,
 } from './types';
 
+export type { BlockSvgInterface } from './define-block';
+
 Blockly.setLocale(cn);
 
 export interface BlocklyContainerProps {

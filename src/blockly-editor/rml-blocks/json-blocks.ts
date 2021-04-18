@@ -1,5 +1,5 @@
 /** 只需要 json 定义的 block */
-import { BlockSvgInterface } from '@/blockly-container/define-block';
+import { BlockSvgInterface } from '@/blockly-container';
 import names from './names';
 
 export default <BlockSvgInterface[]>[

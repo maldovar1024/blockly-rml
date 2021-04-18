@@ -21,7 +21,7 @@ const rmlGenerator = new RMLGenerator();
 const rmlBlocks = [
   ...jsonBlocks,
   new LogicalSourceBlock(),
-  new ObjectMapBlock(),
+  new ObjectMapBlock(rmlGenerator.getTripleMapNames),
 ];
 
 class BlocklyEditor extends Component<BlocklyEditorProps> {

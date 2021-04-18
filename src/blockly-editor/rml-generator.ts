@@ -1,4 +1,4 @@
-import { Block, BlockSvg, Generator } from 'blockly';
+import { Block, BlockSvg, Generator, Workspace } from 'blockly';
 import names from './rml-blocks/names';
 import {
   LogicalSourceType,
@@ -19,12 +19,25 @@ class RMLGenerator extends Generator {
     super('RML');
   }
 
+  /** 映射中所有三元组的名字 */
+  private _tripleMapNames = new Set<string>();
+
+  getTripleMapNames = () => {
+    return this._tripleMapNames;
+  };
+
   /** 表达式的优先级 */
   private static PRECEDENCE = 0;
   /** 实际使用的缩进 */
   private readonly indent = '  ';
   /** 清除默认的缩进 */
   readonly INDENT = '';
+
+  workspaceToCode(workspace: Workspace) {
+    // 每次生成代码时重置
+    this._tripleMapNames = new Set();
+    return super.workspaceToCode(workspace);
+  }
 
   valueToCode(block: Block, name: string): string {
     return super.valueToCode(block, name, RMLGenerator.PRECEDENCE);
@@ -75,6 +88,7 @@ class RMLGenerator extends Generator {
     const content = this.indentLines(
       `${source};\n${subjectMap};\n${predicateObjectMaps}.`
     );
+    this._tripleMapNames.add(name);
     return `<#${name}> a rr:TriplesMap;\n${content}`;
   };
 
@@ -149,7 +163,7 @@ class RMLGenerator extends Generator {
       typeDrop,
       datatypeValue,
       mapValue,
-      parentMapValue,
+      parentMapDrop,
       joinConditionStat,
     } = names.object_map;
     const type = block.getFieldValue(typeDrop) as ObjectMapType;
@@ -163,7 +177,7 @@ class RMLGenerator extends Generator {
         return `rr:objectMap [\n  rml:reference "${value}"${datatypeMap}]`;
       }
       case 'join': {
-        const parentMap = block.getFieldValue(parentMapValue);
+        const parentMap = block.getFieldValue(parentMapDrop);
         const joinCondition = this.statementToCode(block, joinConditionStat);
         const content = this.indentLines(
           `rr:parentTriplesMap <#${parentMap}>;\n${

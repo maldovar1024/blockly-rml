@@ -23,7 +23,7 @@ class RMLGenerator extends Generator {
   private _tripleMapNames = new Set<string>();
 
   getTripleMapNames = () => {
-    return this._tripleMapNames;
+    return [...this._tripleMapNames];
   };
 
   /**

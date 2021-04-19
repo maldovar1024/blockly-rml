@@ -1,6 +1,6 @@
 import { fieldRegistry, FieldTextInput, utils, WidgetDiv } from 'blockly';
 
-export interface TypeaheadValueGenerator {
+export interface TypeaheadGenerator {
   (): string[];
 }
 
@@ -9,27 +9,27 @@ class FieldTypeaheadInput extends FieldTextInput {
 
   isBeingEdited_!: boolean;
 
-  constructor(typeaheadValueGen: TypeaheadValueGenerator);
+  constructor(typeaheadGenerator: TypeaheadGenerator);
   constructor(
     value?: string,
     validator?: (newValue: string | null) => string | null,
     config?: Record<string, string>
   );
   constructor(
-    value?: string | TypeaheadValueGenerator,
+    value?: string | TypeaheadGenerator,
     validator?: (newValue: string | null) => string | null,
     config?: Record<string, string>
   ) {
     super(typeof value === 'function' ? '' : value, validator, config);
     if (typeof value === 'function') {
-      this.setTypeaheadValueGen(value);
+      this.setTypeaheadGenerator(value);
     }
   }
 
-  private typeaheadValueGen_: TypeaheadValueGenerator = () => [];
+  private typeaheadGen_: TypeaheadGenerator = () => [];
 
-  setTypeaheadValueGen(generator: TypeaheadValueGenerator) {
-    this.typeaheadValueGen_ = generator;
+  setTypeaheadGenerator(generator: TypeaheadGenerator) {
+    this.typeaheadGen_ = generator;
   }
 
   showInlineEditor_(quietInput: boolean) {
@@ -43,7 +43,7 @@ class FieldTypeaheadInput extends FieldTextInput {
     }
 
     const datalist = document.createElement('datalist');
-    const typeaheadValues = this.typeaheadValueGen_().map(value => {
+    const typeaheadValues = this.typeaheadGen_().map(value => {
       const option = document.createElement('option');
       option.setAttribute('value', value);
       return option;

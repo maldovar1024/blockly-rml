@@ -1,7 +1,7 @@
 import { BlockSvgInterface } from '@/blockly-container';
 import { FieldDropdown, FieldTextInput } from 'blockly';
 import FieldTypeaheadInput, {
-  TypeaheadValueGenerator,
+  TypeaheadGenerator,
 } from './field-typeahead-input';
 import names from './names';
 import { BlockThis, ObjectMapType } from './types';
@@ -11,7 +11,7 @@ const { object_map } = names;
 type ObjectMapThis = BlockThis<ObjectMapBlock>;
 
 class ObjectMapBlock implements BlockSvgInterface {
-  constructor(private mapNameTypeaheadGen: TypeaheadValueGenerator) {}
+  constructor(private mapNameTypeaheadGen: TypeaheadGenerator) {}
 
   name = object_map.name;
   json = {

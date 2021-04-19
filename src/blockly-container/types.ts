@@ -38,3 +38,7 @@ export interface CustomMenuOptions {
   blockMenuItems?: BlockMenuItem[];
   workspaceMenuItems?: WorkspaceMenuItem[];
 }
+
+export type ExtensionRegisterType = Parameters<
+  typeof Blockly.Extensions.register
+>;

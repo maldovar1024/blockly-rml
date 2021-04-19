@@ -5,6 +5,7 @@ import { Component, createRef, CSSProperties } from 'react';
 import defineBlock, { BlockSvgInterface } from './define-block';
 import type {
   CustomMenuOptions,
+  ExtensionRegisterType,
   RegistryType,
   WorkspaceChangeCallback,
 } from './types';
@@ -24,6 +25,7 @@ export interface BlocklyContainerProps {
   unregisteredMenuItems?: string[];
   initialWorkspace?: string;
   registryItems?: RegistryType[];
+  extensions?: ExtensionRegisterType[];
   /** 工作区发生改变时的回调函数 */
   workspaceChangeCallbacks?: WorkspaceChangeCallback[];
   className?: string;
@@ -47,6 +49,7 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     const {
       blocklyOptions,
       customBlocks,
+      extensions,
       initialWorkspace,
       unregisteredMenuItems,
       workspaceChangeCallbacks,
@@ -65,6 +68,10 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     registryItems?.forEach(item => Blockly.registry.register(...item));
 
     customBlocks?.forEach(defineBlock);
+
+    extensions?.forEach(ext => {
+      Blockly.Extensions.register(...ext);
+    });
 
     this.mainWorkspace = Blockly.inject(blocklyDiv, blocklyOptions);
     if (initialWorkspace) {

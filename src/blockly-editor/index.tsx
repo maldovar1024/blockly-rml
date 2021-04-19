@@ -1,18 +1,11 @@
 import BlocklyContainer from '@/blockly-container';
-import {
-  CustomMenuOptions,
-  WorkspaceChangeCallback,
-} from '@/blockly-container/types';
+import { WorkspaceChangeCallback } from '@/blockly-container/types';
 import { connect, setMappingCode } from '@/stores';
 import { BlocklyOptions, BlockSvg, Events } from 'blockly';
 import { Component, createRef } from 'react';
 import { ConnectedProps } from 'react-redux';
 import initialWorkspace from './initial-workspace.xml';
-import {
-  createImportWorkspaceMenuOption,
-  staticBlockMenuOptions,
-  staticWorkspaceMenuOptions,
-} from './menu-options';
+import customMenuOptions from './menu-options';
 import {
   createBlock,
   jsonBlocks,
@@ -86,15 +79,6 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     new ObjectMapBlock(),
   ];
 
-  /** 自定义右键菜单 */
-  private customMenuOptions: CustomMenuOptions = {
-    workspaceMenuItems: [
-      ...staticWorkspaceMenuOptions,
-      createImportWorkspaceMenuOption(this.rmlGenerator.collectInfoFromXml),
-    ],
-    blockMenuItems: [...staticBlockMenuOptions],
-  };
-
   /** 要注销的默认菜单 */
   private unregisteredMenus = [
     'workspaceDelete',
@@ -119,7 +103,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
         ref={this.ref}
         blocklyOptions={this.blocklyOptions}
         customBlocks={this.rmlBlocks}
-        customMenuOptions={this.customMenuOptions}
+        customMenuOptions={customMenuOptions}
         unregisteredMenuItems={this.unregisteredMenus}
         initialWorkspace={initialWorkspace}
         workspaceChangeCallbacks={this.workspaceChangeCallbacks}

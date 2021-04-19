@@ -11,22 +11,57 @@ interface RDFViewerProps {
   quads: Quad[];
 }
 
+type RDFValue = [value: string, abbr: string];
+
 interface RDFTripleData {
   key: number;
-  subject: string;
-  predicate: string;
-  object: string;
+  subject: RDFValue;
+  predicate: RDFValue;
+  object: RDFValue;
 }
 
 const { Column } = Table;
 
-const RDFViewer: FC<RDFViewerProps> = ({ quads }) => {
-  const data = quads.map<RDFTripleData>((quad, idx) => ({
+/**
+ * 拆分出 URI 最后一个 `/` 或 `#` 后的部分
+ * @returns [完整的 `uri`, 拆分出的部分]
+ */
+function makeRDFValue(uri: string): RDFValue {
+  for (let i = uri.length - 1; i >= 0; i--) {
+    if (uri[i] === '/' || uri[i] === '#') {
+      return [uri, uri.slice(i + 1)];
+    }
+  }
+  return [uri, uri];
+}
+
+/** 将 Quad 数据转换为表格需要的格式 */
+function rdfTripleProcessor(quad: Quad, idx: number): RDFTripleData {
+  const subject = makeRDFValue(quad.subject.value);
+  const predicate = makeRDFValue(quad.predicate.value);
+
+  let object: RDFValue;
+  if (quad.object.termType === 'Literal') {
+    const termType = makeRDFValue(quad.object.datatype.value);
+    const { value } = quad.object;
+    object = [`${value}^^${termType[0]}`, `${value}^^${termType[1]}`];
+  } else {
+    object = makeRDFValue(quad.object.value);
+  }
+  return {
     key: idx,
-    subject: quad.subject.value,
-    predicate: quad.predicate.value,
-    object: quad.object.value,
-  }));
+    subject,
+    predicate,
+    object,
+  };
+}
+
+function renderColumn(value: RDFValue) {
+  return <span title={value[0]}>{value[1]}</span>;
+}
+
+const RDFViewer: FC<RDFViewerProps> = ({ quads }) => {
+  const data = quads.map<RDFTripleData>(rdfTripleProcessor);
 
   return (
     <Table<RDFTripleData>
@@ -36,9 +71,24 @@ const RDFViewer: FC<RDFViewerProps> = ({ quads }) => {
       sticky
       bordered
     >
-      <Column title="Subject" dataIndex="subject" key="subject" />
-      <Column title="Predicate" dataIndex="predicate" key="predicate" />
-      <Column title="Object" dataIndex="object" key="object" />
+      <Column
+        title="Subject"
+        dataIndex="subject"
+        ellipsis
+        render={renderColumn}
+      />
+      <Column
+        title="Predicate"
+        dataIndex="predicate"
+        ellipsis
+        render={renderColumn}
+      />
+      <Column
+        title="Object"
+        dataIndex="object"
+        ellipsis
+        render={renderColumn}
+      />
     </Table>
   );
 };

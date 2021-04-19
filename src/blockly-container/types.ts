@@ -38,36 +38,3 @@ export interface CustomMenuOptions {
   blockMenuItems?: BlockMenuItem[];
   workspaceMenuItems?: WorkspaceMenuItem[];
 }
-
-/** 定义 mutator 时 `this` 的类型 */
-export type MutatorThis<T> = BlockSvg & {
-  updateShape(param: T): void;
-  extraInfo: Record<string, string>;
-};
-
-/** mutator 对象 */
-export interface MutatorObject<T> {
-  mutationToDom: (this: MutatorThis<T>) => Element;
-  domToMutation: (this: MutatorThis<T>, element: Element) => void;
-  updateShape: (this: MutatorThis<T>, param: T) => void;
-  extraInfo: Record<string, string>;
-}
-
-/**
- * 带泛型的 mutator 的定义的类型 \
- * 定义 mutator 时使用，以获得更好的类型支持
- */
-export type MutatorType<T> = [
-  name: string,
-  mixinObj: MutatorObject<T>,
-  opt_helperFn?: (this: MutatorThis<T>) => void,
-  opt_blockList?: string[]
-];
-
-/**
- * 一般的 mutator 的定义的类型 \
- * 用于声明参数类型
- */
-export type GeneralMutatorType = Parameters<
-  typeof Blockly.Extensions.registerMutator
->;

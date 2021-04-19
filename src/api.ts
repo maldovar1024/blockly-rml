@@ -31,7 +31,7 @@ export async function getMappingResult(
       case 200:
         return {
           status: MappingResultStatus.successful,
-          result: (await response.json()).output,
+          result: await response.json(),
         };
       case 400:
         return {

@@ -1,5 +1,8 @@
 import { BlockSvgInterface } from '@/blockly-container';
 import { FieldDropdown, FieldTextInput } from 'blockly';
+import FieldTypeaheadInput, {
+  TypeaheadValueGenerator,
+} from './field-typeahead-input';
 import names from './names';
 import { BlockThis, LogicalSourceType } from './types';
 
@@ -8,13 +11,15 @@ const { logical_source } = names;
 type LogicalSourceThis = BlockThis<LogicalSourceBlock>;
 
 class LogicalSourceBlock implements BlockSvgInterface {
+  constructor(private filenameNameTypeaheadGen: TypeaheadValueGenerator) {}
+
   name = logical_source.name;
   json = {
     type: logical_source.name,
     message0: 'source %1 . %2',
     args0: [
       {
-        type: 'field_input',
+        type: 'field-typeahead-input',
         name: logical_source.filenameValue,
         text: '',
       },
@@ -33,7 +38,11 @@ class LogicalSourceBlock implements BlockSvgInterface {
   };
 
   init = function (this: LogicalSourceThis) {
-    const { filetypeDrop } = logical_source;
+    const { filetypeDrop, filenameValue } = logical_source;
+
+    const filenameField = this.getField(filenameValue) as FieldTypeaheadInput;
+    filenameField.setTypeaheadValueGen(this.filenameNameTypeaheadGen);
+
     const filetypeField = this.getField(filetypeDrop) as FieldDropdown;
     this.updateShape(filetypeField.getValue());
     filetypeField.setValidator((newValue: LogicalSourceType) => {

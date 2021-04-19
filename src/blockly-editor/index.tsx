@@ -4,7 +4,7 @@ import {
   WorkspaceChangeCallback,
 } from '@/blockly-container/types';
 import { connect, setMappingCode } from '@/stores';
-import { BlocklyOptions, Events } from 'blockly';
+import { BlocklyOptions, BlockSvg, Events } from 'blockly';
 import { Component, createRef } from 'react';
 import { ConnectedProps } from 'react-redux';
 import initialWorkspace from './initial-workspace.xml';
@@ -40,7 +40,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
 
     const { predicate_object_maps, predicate_map, object_map } = names;
     const workspace = editor.mainWorkspace;
-    createBlock(workspace, {
+    const predicateObjectMapBlock = createBlock(workspace, {
       type: predicate_object_maps.name,
       statements: {
         [predicate_object_maps.predMapsStat]: {
@@ -55,6 +55,16 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
         },
       },
     });
+
+    const topBlock = workspace.getBlocksByType(
+      names.triple_maps.name,
+      true
+    )[0] as BlockSvg | undefined;
+    if (topBlock) {
+      const position = topBlock.getRelativeToSurfaceXY();
+      const { height } = topBlock.getHeightWidth();
+      predicateObjectMapBlock.moveTo(position.translate(0, height));
+    }
   }
 
   private blocklyOptions: BlocklyOptions = {

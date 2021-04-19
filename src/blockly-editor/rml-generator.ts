@@ -179,7 +179,7 @@ class RMLGenerator extends Generator {
       typeDrop,
       datatypeValue,
       mapValue,
-      parentMapDrop,
+      parentMapValue,
       joinConditionStat,
     } = names.object_map;
     const type = block.getFieldValue(typeDrop) as ObjectMapType;
@@ -193,7 +193,7 @@ class RMLGenerator extends Generator {
         return `rr:objectMap [\n  rml:reference "${value}"${datatypeMap}]`;
       }
       case 'join': {
-        const parentMap = block.getFieldValue(parentMapDrop);
+        const parentMap = block.getFieldValue(parentMapValue);
         const joinCondition = this.statementToCode(block, joinConditionStat);
         const content = this.indentLines(
           `rr:parentTriplesMap <#${parentMap}>;\n${

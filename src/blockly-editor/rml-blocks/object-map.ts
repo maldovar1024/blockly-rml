@@ -8,8 +8,6 @@ const { object_map } = names;
 type ObjectMapThis = BlockThis<ObjectMapBlock>;
 
 class ObjectMapBlock implements BlockSvgInterface {
-  constructor(private getMapNames: () => Set<string>) {}
-
   name = object_map.name;
   json = {
     type: object_map.name,
@@ -68,7 +66,7 @@ class ObjectMapBlock implements BlockSvgInterface {
       datatypeValue,
       parentMapDummy,
       parentMapLabel,
-      parentMapDrop,
+      parentMapValue,
       joinConditionLabel,
       joinConditionStat,
     } = object_map;
@@ -100,17 +98,7 @@ class ObjectMapBlock implements BlockSvgInterface {
       // 创建 parent_map 和 join_conditions 输入
       this.appendDummyInput(parentMapDummy)
         .appendField(`${parentMapLabel} <#`)
-        .appendField(
-          new FieldDropdown(() => {
-            const mapNames = this.getMapNames();
-            const options: [string, string][] = [];
-            for (const mapName of mapNames) {
-              options.push([mapName, mapName]);
-            }
-            return options;
-          }),
-          parentMapDrop
-        )
+        .appendField(new FieldTextInput(''), parentMapValue)
         .appendField('>');
       this.appendStatementInput(joinConditionStat)
         .setCheck('join_condition')

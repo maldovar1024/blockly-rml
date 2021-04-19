@@ -66,7 +66,7 @@ const names = {
     datatypeValue: 'datatype',
     parentMapDummy: 'parent_dummy',
     parentMapLabel: 'Parent Map',
-    parentMapDrop: 'parent_map',
+    parentMapValue: 'parent_map',
     joinConditionStat: 'join_conditions',
     joinConditionLabel: 'Join Conditions',
   },

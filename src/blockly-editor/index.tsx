@@ -83,7 +83,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
   private rmlBlocks = [
     ...jsonBlocks,
     new LogicalSourceBlock(),
-    new ObjectMapBlock(this.rmlGenerator.getTripleMapNames),
+    new ObjectMapBlock(),
   ];
 
   /** 自定义右键菜单 */

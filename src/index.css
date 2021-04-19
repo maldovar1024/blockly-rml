@@ -35,3 +35,7 @@ code {
 ::-webkit-scrollbar-corner {
   background-color: #dcdcdc;
 }
+
+input[list]::-webkit-calendar-picker-indicator {
+  display: none;
+}

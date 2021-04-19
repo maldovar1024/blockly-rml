@@ -1,6 +1,6 @@
 import BlocklyContainer from '@/blockly-container';
 import { WorkspaceChangeCallback } from '@/blockly-container/types';
-import { connect, setMappingCode } from '@/stores';
+import store, { connect, setMappingCode } from '@/stores';
 import { BlocklyOptions, BlockSvg, Events } from 'blockly';
 import { Component, createRef } from 'react';
 import { ConnectedProps } from 'react-redux';
@@ -15,6 +15,13 @@ import {
 } from './rml-blocks';
 import RMLGenerator from './rml-generator';
 import toolbox from './toolbox.xml';
+
+function getFilenames() {
+  return store.getState().source.map(({ filename }) => {
+    const idx = filename.lastIndexOf('.');
+    return idx === -1 ? filename : filename.slice(0, idx);
+  });
+}
 
 class BlocklyEditor extends Component<BlocklyEditorProps> {
   private ref = createRef<BlocklyContainer>();
@@ -75,8 +82,8 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
   /** 自定义块 */
   private rmlBlocks = [
     ...jsonBlocks,
-    new LogicalSourceBlock(),
-    new ObjectMapBlock(),
+    new LogicalSourceBlock(getFilenames),
+    new ObjectMapBlock(this.rmlGenerator.getTripleMapNames),
   ];
 
   /** 要注销的默认菜单 */

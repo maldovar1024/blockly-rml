@@ -121,7 +121,11 @@ const customMenuOptions: CustomMenuOptions = {
         }
         try {
           const xml = Xml.textToDom(content);
-          Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+          const result = Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+          if (result.length === 0) {
+            Xml.domToWorkspace(Xml.textToDom(initialWorkspace), workspace);
+            throw new Error();
+          }
         } catch (error) {
           message.error({ content: '解析文件失败，请确认文件内容' });
         }

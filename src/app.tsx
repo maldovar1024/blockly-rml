@@ -11,10 +11,10 @@ const App: FC = () => {
       <Col span="4">
         <SourceManager />
       </Col>
-      <Col span="15">
+      <Col span="14">
         <BlocklyEditor />
       </Col>
-      <Col span="5">
+      <Col span="6">
         <MappingResult />
       </Col>
     </Row>

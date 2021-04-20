@@ -64,13 +64,13 @@ class RMLGenerator extends Generator {
     const { prefixValue, fullValueValue } = names.prefix;
     const prefix = block.getFieldValue(prefixValue);
     const fullValue = block.getFieldValue(fullValueValue);
-    return `@prefix ${prefix}: ${fullValue}.\n`;
+    return `@prefix ${prefix}: <${fullValue}>.\n`;
   };
 
   base_prefix: StatementGenerator = block => {
     const { uriValue } = names.base_prefix;
     const uri = block.getFieldValue(uriValue);
-    return `@base ${uri}.\n`;
+    return `@base <${uri}>.\n`;
   };
 
   /** 生成一个三元组映射 */

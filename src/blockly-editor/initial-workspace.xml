@@ -3,18 +3,18 @@
     <statement name="prefixes">
       <block type="prefix" editable="false" deletable="false" movable="false">
         <field name="prefix">rml</field>
-        <field name="value">&lt;http://semweb.mmlab.be/ns/rml#&gt;</field>
+        <field name="value">http://semweb.mmlab.be/ns/rml#</field>
         <next>
           <block type="prefix" editable="false" deletable="false" movable="false">
             <field name="prefix">ql</field>
-            <field name="value">&lt;http://semweb.mmlab.be/ns/ql#&gt;</field>
+            <field name="value">http://semweb.mmlab.be/ns/ql#</field>
             <next>
               <block type="prefix" editable="false" deletable="false" movable="false">
                 <field name="prefix">rr</field>
-                <field name="value">&lt;http://www.w3.org/ns/r2rml#&gt;</field>
+                <field name="value">http://www.w3.org/ns/r2rml#</field>
                 <next>
                   <block type="base_prefix">
-                    <field name="base_uri">&lt;http://example.com/ns#&gt;</field>
+                    <field name="base_uri">http://example.com/ns#</field>
                   </block>
                 </next>
               </block>

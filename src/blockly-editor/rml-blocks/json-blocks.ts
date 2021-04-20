@@ -28,7 +28,7 @@ export default <BlockSvgInterface[]>[
     name: names.prefix.name,
     json: {
       type: names.prefix.name,
-      message0: '%1 : %2',
+      message0: '%1 : <%2>',
       args0: [
         {
           type: 'field_input',
@@ -51,7 +51,7 @@ export default <BlockSvgInterface[]>[
     name: names.base_prefix.name,
     json: {
       type: names.base_prefix.name,
-      message0: '@base %1',
+      message0: '@base <%1>',
       args0: [
         {
           type: 'field_input',

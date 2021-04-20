@@ -1,7 +1,7 @@
 import { CustomMenuOptions } from '@/blockly-container/types';
 import { downloadFile, uploadAndReadTextFile } from '@/utils';
 import { message } from 'antd';
-import { BlockSvg, Xml } from 'blockly';
+import { Xml } from 'blockly';
 import initialWorkspace from './initial-workspace.xml';
 import { createBlock, names } from './rml-blocks';
 
@@ -20,6 +20,7 @@ const customMenuOptions: CustomMenuOptions = {
       },
       callback({ workspace }) {
         const {
+          triple_maps,
           triple_map,
           logical_source,
           subject_map,
@@ -63,14 +64,20 @@ const customMenuOptions: CustomMenuOptions = {
           },
         });
 
-        const topBlock = workspace.getBlocksByType(
-          names.triple_maps.name,
+        const tripleMapBlocks = workspace.getBlocksByType(
+          triple_map.name,
           true
-        )[0] as BlockSvg | undefined;
-        if (topBlock) {
-          const position = topBlock.getRelativeToSurfaceXY();
-          const { height } = topBlock.getHeightWidth();
-          predicateObjectMapBlock.moveTo(position.translate(0, height));
+        );
+        const lastTripleMapBlock = tripleMapBlocks[tripleMapBlocks.length - 1];
+        if (lastTripleMapBlock) {
+          lastTripleMapBlock.nextConnection.connect(
+            predicateObjectMapBlock.previousConnection
+          );
+        } else {
+          const topBlock = workspace.getBlocksByType(triple_maps.name, true)[0];
+          topBlock
+            ?.getInput(triple_maps.tripleMapsStat)
+            .connection.connect(predicateObjectMapBlock.previousConnection);
         }
       },
       id: 'add_triple_map',

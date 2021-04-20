@@ -13,8 +13,20 @@
                 <field name="prefix">rr</field>
                 <field name="value">http://www.w3.org/ns/r2rml#</field>
                 <next>
-                  <block type="base_prefix">
-                    <field name="base_uri">http://example.com/ns#</field>
+                  <block type="prefix" editable="false">
+                    <field name="prefix">xsd</field>
+                    <field name="value">http://www.w3.org/2001/XMLSchema#</field>
+                    <next>
+                      <block type="prefix">
+                        <field name="prefix">ex</field>
+                        <field name="value">http://example.com/ns#</field>
+                        <next>
+                          <block type="base_prefix">
+                            <field name="base_uri">http://example.com/ns#</field>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
                   </block>
                 </next>
               </block>

@@ -1,9 +1,9 @@
 import { CustomMenuOptions } from '@/blockly-container/types';
 import { downloadFile, uploadAndReadTextFile } from '@/utils';
 import { message } from 'antd';
-import { Xml } from 'blockly';
+import { BlockSvg, Xml } from 'blockly';
 import initialWorkspace from './initial-workspace.xml';
-import { names } from './rml-blocks';
+import { createBlock, names } from './rml-blocks';
 
 const unCollapsibleBlock = new Set<string>([
   names.triple_maps.name,
@@ -13,6 +13,69 @@ const unCollapsibleBlock = new Set<string>([
 
 const customMenuOptions: CustomMenuOptions = {
   workspaceMenuItems: [
+    {
+      displayText: '添加三元组映射',
+      preconditionFn() {
+        return 'enabled';
+      },
+      callback({ workspace }) {
+        const {
+          triple_map,
+          logical_source,
+          subject_map,
+          rr_class,
+          predicate_object_maps,
+          predicate_map,
+          object_map,
+        } = names;
+
+        const predicateObjectMapBlock = createBlock(workspace, {
+          type: triple_map.name,
+          inputs: {
+            [triple_map.sourceInput]: {
+              type: logical_source.name,
+            },
+            [triple_map.subjectMapInput]: {
+              type: subject_map.name,
+              statements: {
+                [subject_map.classesStat]: {
+                  type: rr_class.name,
+                },
+              },
+            },
+          },
+          statements: {
+            [triple_map.predObjMapsStat]: {
+              type: predicate_object_maps.name,
+              statements: {
+                [predicate_object_maps.predMapsStat]: {
+                  type: predicate_map.name,
+                },
+                [predicate_object_maps.objMapsStat]: {
+                  type: object_map.name,
+                  fields: {
+                    [object_map.typeDrop]: 'reference',
+                    [object_map.mapValue]: '',
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        const topBlock = workspace.getBlocksByType(
+          names.triple_maps.name,
+          true
+        )[0] as BlockSvg | undefined;
+        if (topBlock) {
+          const position = topBlock.getRelativeToSurfaceXY();
+          const { height } = topBlock.getHeightWidth();
+          predicateObjectMapBlock.moveTo(position.translate(0, height));
+        }
+      },
+      id: 'add_triple_map',
+      weight: 100,
+    },
     {
       displayText: '重置工作区',
       preconditionFn() {

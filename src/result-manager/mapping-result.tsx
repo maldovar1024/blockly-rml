@@ -125,12 +125,14 @@ const MappingResult: FC = () => {
 
   return (
     <>
-      <Button
-        className="execute-btn"
-        disabled={status === MappingResultStatus.pending}
-        icon={<CaretRightOutlined />}
-        onClick={executeMapping}
-      ></Button>
+      <div className="controller">
+        <Button
+          className="execute-btn"
+          disabled={status === MappingResultStatus.pending}
+          icon={<CaretRightOutlined />}
+          onClick={executeMapping}
+        />
+      </div>
       <div className={viewerClass}>{content}</div>
     </>
   );

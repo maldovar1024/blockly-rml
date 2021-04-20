@@ -124,9 +124,9 @@ class RMLGenerator extends Generator {
     const rr_class = this.indentLines(this.statementToCode(block, classesStat));
     const code =
       `rr:subjectMap [\n` +
-      `  rr:template "${template}";\n` +
-      `${rr_class}\n` +
-      `]`;
+      `  rr:template "${template}"${
+        rr_class === this.indent ? '' : `;\n${rr_class}`
+      }\n]`;
     return [code, RMLGenerator.PRECEDENCE];
   };
 

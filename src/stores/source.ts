@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SourceRecord } from './types';
 
-const initialState: SourceRecord[] = [];
-
 const source = createSlice({
   name: 'source',
-  initialState,
+  initialState: <SourceRecord[]>[],
   reducers: {
     /** 如果文件已存在，则替换原文件；否则在列表末尾添加新文件 */
     addSource(state, action: PayloadAction<SourceRecord>) {

@@ -8,13 +8,6 @@ import {
   SuccessfulMappingResult,
 } from './types';
 
-const initialState: ResultStore = {
-  code: '',
-  mappingResult: {
-    status: MappingResultStatus.initial,
-  },
-};
-
 interface ThunkApiType {
   state: RootStore;
   rejectValue: FailedMappingResult;
@@ -46,7 +39,12 @@ export const fetchMappingResult = createAsyncThunk<
 
 const results = createSlice({
   name: 'results',
-  initialState,
+  initialState: <ResultStore>{
+    code: '',
+    mappingResult: {
+      status: MappingResultStatus.initial,
+    },
+  },
   reducers: {
     /** 设置生成的映射代码 */
     setMappingCode(state, action: PayloadAction<string>) {

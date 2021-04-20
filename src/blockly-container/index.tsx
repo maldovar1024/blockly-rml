@@ -1,9 +1,8 @@
-import type { BlocklyOptions, WorkspaceSvg } from 'blockly';
-import * as Blockly from 'blockly';
+import Blockly, { BlocklyOptions, WorkspaceSvg } from 'blockly';
 import cn from 'blockly/msg/zh-hans';
 import { Component, createRef, CSSProperties } from 'react';
 import defineBlock, { BlockSvgInterface } from './define-block';
-import type {
+import {
   CustomMenuOptions,
   ExtensionRegisterType,
   RegistryType,

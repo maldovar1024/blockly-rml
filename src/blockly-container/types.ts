@@ -1,4 +1,4 @@
-import type { BlockSvg, Events, WorkspaceSvg } from 'blockly';
+import { BlockSvg, Events, WorkspaceSvg } from 'blockly';
 import * as Blockly from 'blockly';
 
 /** 工作区变化时的回调函数 */

@@ -1,6 +1,7 @@
 import BlocklyContainer from '@/blockly-container';
 import { WorkspaceChangeCallback } from '@/blockly-container/types';
 import store, { connect, setMappingCode } from '@/stores';
+import { Filetype } from '@/stores/types';
 import { BlocklyOptions, BlockSvg, Events } from 'blockly';
 import { Component, createRef } from 'react';
 import { ConnectedProps } from 'react-redux';
@@ -10,17 +11,28 @@ import {
   createBlock,
   jsonBlocks,
   LogicalSourceBlock,
+  LogicalSourceType,
   names,
   ObjectMapBlock,
 } from './rml-blocks';
 import RMLGenerator from './rml-generator';
 import toolbox from './toolbox.xml';
 
-function getFilenames() {
-  return store.getState().source.map(({ filename }) => {
-    const idx = filename.lastIndexOf('.');
-    return idx === -1 ? filename : filename.slice(0, idx);
-  });
+function getFilenames(block: BlockSvg) {
+  const filetype = block.getFieldValue(
+    names.logical_source.filetypeDrop
+  ) as LogicalSourceType;
+  return store
+    .getState()
+    .source.filter(
+      file =>
+        (filetype === 'csv' && file.filetype === Filetype.CSV) ||
+        (filetype === 'json' && file.filetype === Filetype.JSON)
+    )
+    .map(({ filename }) => {
+      const idx = filename.lastIndexOf('.');
+      return idx === -1 ? filename : filename.slice(0, idx);
+    });
 }
 
 class BlocklyEditor extends Component<BlocklyEditorProps> {

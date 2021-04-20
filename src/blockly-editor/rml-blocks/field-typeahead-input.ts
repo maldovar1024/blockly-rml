@@ -1,7 +1,13 @@
-import { fieldRegistry, FieldTextInput, utils, WidgetDiv } from 'blockly';
+import {
+  BlockSvg,
+  fieldRegistry,
+  FieldTextInput,
+  utils,
+  WidgetDiv,
+} from 'blockly';
 
 export interface TypeaheadGenerator {
-  (): string[];
+  (block: BlockSvg): string[];
 }
 
 class FieldTypeaheadInput extends FieldTextInput {
@@ -43,11 +49,13 @@ class FieldTypeaheadInput extends FieldTextInput {
     }
 
     const datalist = document.createElement('datalist');
-    const typeaheadValues = this.typeaheadGen_().map(value => {
-      const option = document.createElement('option');
-      option.setAttribute('value', value);
-      return option;
-    });
+    const typeaheadValues = this.typeaheadGen_(<BlockSvg>this.sourceBlock_).map(
+      value => {
+        const option = document.createElement('option');
+        option.setAttribute('value', value);
+        return option;
+      }
+    );
     datalist.append(...typeaheadValues);
     datalist.id = 'field-typeahead-input-datalist';
     this.htmlInput_.setAttribute('list', datalist.id);

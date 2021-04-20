@@ -198,7 +198,7 @@ class RMLGenerator extends Generator {
     const parentRef = block.getFieldValue(parentRefValue);
     return (
       'rr:joinCondition [\n' +
-      `  rr:child "${childRef}"\n` +
+      `  rr:child "${childRef}";\n` +
       `  rr:parent "${parentRef}"\n` +
       ']'
     );

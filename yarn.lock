@@ -2341,10 +2341,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-antd@4.14.1:
-  version "4.14.1"
-  resolved "https://registry.npm.taobao.org/antd/download/antd-4.14.1.tgz?cache=0&sync_timestamp=1616413673065&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fantd%2Fdownload%2Fantd-4.14.1.tgz#f04b7323793045fd159aaf18037adc8ce4f5aaeb"
-  integrity sha1-8EtzI3kwRf0Vmq8YA3rcjOT1qus=
+antd@^4.15.2:
+  version "4.15.2"
+  resolved "https://registry.nlark.com/antd/download/antd-4.15.2.tgz#f955bcbdd1f577c7ac93a00ad17d1719d1b90818"
+  integrity sha1-+VW8vdH1d8esk6AK0X0XGdG5CBg=
   dependencies:
     "@ant-design/colors" "^6.0.0"
     "@ant-design/icons" "^4.6.2"
@@ -2353,7 +2353,7 @@ antd@4.14.1:
     array-tree-filter "^2.1.0"
     classnames "^2.2.6"
     copy-to-clipboard "^3.2.0"
-    lodash "^4.17.20"
+    lodash "^4.17.21"
     moment "^2.25.3"
     rc-cascader "~1.4.0"
     rc-checkbox "~2.3.0"
@@ -11538,10 +11538,10 @@ typedarray@^0.0.6:
   resolved "https://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.1.3:
-  version "4.2.3"
-  resolved "https://registry.npm.taobao.org/typescript/download/typescript-4.2.3.tgz#39062d8019912d43726298f09493d598048c1ce3"
-  integrity sha1-OQYtgBmRLUNyYpjwlJPVmASMHOM=
+typescript@^4.2.3:
+  version "4.2.4"
+  resolved "https://registry.nlark.com/typescript/download/typescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
+  integrity sha1-hhC1l0feAo/aiYqK7w4QPxVtCWE=
 
 ua-parser-js@^0.7.18:
   version "0.7.27"

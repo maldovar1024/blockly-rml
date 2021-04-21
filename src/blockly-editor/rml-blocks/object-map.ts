@@ -46,22 +46,6 @@ class ObjectMapBlock implements BlockSvgInterface {
     });
   };
 
-  mutationToDom = function (this: ObjectMapThis) {
-    const { typeDrop } = object_map;
-    const mutation = document.createElement('mutation');
-    mutation.setAttribute(typeDrop, this.getFieldValue(typeDrop));
-    return mutation;
-  };
-
-  domToMutation = function (this: ObjectMapThis, element: Element) {
-    const { typeDrop } = object_map;
-    const mapType = (element.getAttribute(typeDrop) ??
-      'constant') as ObjectMapType;
-    if (mapType !== this.getFieldValue(typeDrop)) {
-      this.updateShape(mapType);
-    }
-  };
-
   updateShape = function (this: ObjectMapThis, newValue: ObjectMapType) {
     const {
       mapValue,

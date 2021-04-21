@@ -109,6 +109,8 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     'blockInline',
     'blockCollapseExpand',
     'cleanWorkspace',
+    'collapseWorkspace',
+    'expandWorkspace',
   ];
 
   private onWorkspaceChange: WorkspaceChangeCallback = evt => {

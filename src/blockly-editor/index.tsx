@@ -84,6 +84,11 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     move: {
       scrollbars: true,
     },
+    zoom: {
+      wheel: true,
+      maxScale: 1,
+      minScale: 0.7,
+    },
     sounds: false,
     toolbox,
   };

@@ -93,14 +93,16 @@ export default <BlockSvgInterface[]>[
           check: names.subject_map.name,
         },
       ],
-      message3: 'Predicate Object Maps %1',
-      args3: [
+      message3: 'Predicate-',
+      message4: 'Object Maps %1',
+      args4: [
         {
           type: 'input_statement',
           name: names.triple_map.predObjMapsStat,
           check: names.predicate_object_maps.name,
         },
       ],
+      inputsInline: false,
       previousStatement: names.triple_map.name,
       nextStatement: names.triple_map.name,
       colour: 210,

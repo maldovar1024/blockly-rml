@@ -44,29 +44,12 @@ class LogicalSourceBlock implements BlockSvgInterface {
     filenameField.setTypeaheadGenerator(this.filenameTypeaheadGen);
 
     const filetypeField = this.getField(filetypeDrop) as FieldDropdown;
-    this.updateShape(filetypeField.getValue());
     filetypeField.setValidator((newValue: LogicalSourceType) => {
       const oldValue = filetypeField.getValue() as LogicalSourceType;
       if (oldValue !== newValue) {
         this.updateShape(newValue);
       }
     });
-  };
-
-  mutationToDom = function (this: LogicalSourceThis) {
-    const { filetypeDrop } = logical_source;
-    const mutation = document.createElement('mutation');
-    mutation.setAttribute(filetypeDrop, this.getFieldValue(filetypeDrop));
-    return mutation;
-  };
-
-  domToMutation = function (this: LogicalSourceThis, element: Element) {
-    const { filetypeDrop } = logical_source;
-    const filetype = (element.getAttribute(filetypeDrop) ??
-      'csv') as LogicalSourceType;
-    if (filetype !== this.getFieldValue(filetypeDrop)) {
-      this.updateShape(filetype);
-    }
   };
 
   updateShape = function (

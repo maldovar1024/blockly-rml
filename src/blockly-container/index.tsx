@@ -34,8 +34,12 @@ const style: CSSProperties = {
 };
 
 class BlocklyContainer extends Component<BlocklyContainerProps> {
-  container = createRef<HTMLDivElement>();
-  mainWorkspace!: WorkspaceSvg;
+  private container = createRef<HTMLDivElement>();
+  private _mainWorkspace!: WorkspaceSvg;
+
+  get mainWorkspace() {
+    return this._mainWorkspace;
+  }
 
   componentDidMount() {
     const blocklyDiv = this.container.current;
@@ -70,21 +74,21 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
       Blockly.Extensions.register(...ext);
     });
 
-    this.mainWorkspace = Blockly.inject(blocklyDiv, blocklyOptions);
+    this._mainWorkspace = Blockly.inject(blocklyDiv, blocklyOptions);
     if (initialWorkspace) {
       Blockly.Xml.domToWorkspace(
         Blockly.Xml.textToDom(initialWorkspace),
-        this.mainWorkspace
+        this._mainWorkspace
       );
     }
     workspaceChangeCallbacks?.forEach(callback =>
-      this.mainWorkspace.addChangeListener(callback)
+      this._mainWorkspace.addChangeListener(callback)
     );
   }
 
   exportBlocks() {
     const { Xml } = Blockly;
-    const xml = Xml.workspaceToDom(this.mainWorkspace);
+    const xml = Xml.workspaceToDom(this._mainWorkspace);
     return Xml.domToPrettyText(xml);
   }
 
@@ -92,7 +96,7 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     const { Xml } = Blockly;
     try {
       const xml = Xml.textToDom(xmlText);
-      Xml.clearWorkspaceAndLoadFromXml(xml, this.mainWorkspace);
+      Xml.clearWorkspaceAndLoadFromXml(xml, this._mainWorkspace);
     } catch (/*Error*/ error) {
       return error;
     }

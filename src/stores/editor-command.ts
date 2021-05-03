@@ -5,7 +5,6 @@ const editorCommand = createSlice({
   name: 'editorCommands',
   initialState: <EditorCommandStore>{
     id: '',
-    filename: '',
     reference: '',
   },
   reducers: {

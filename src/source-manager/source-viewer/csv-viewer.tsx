@@ -5,7 +5,6 @@ import { FC, MouseEventHandler, useCallback } from 'react';
 import './csv-viewer.less';
 
 export interface CSVViewerProps {
-  filename: string;
   structure: CSVSource['structure'];
 }
 
@@ -21,12 +20,11 @@ const CSVViewer: FC<CSVViewerProps> = props => {
       const item = evt.target as HTMLDivElement;
       dispatch(
         createBlock({
-          filename: props.filename,
           reference: item.textContent ?? '',
         })
       );
     },
-    [dispatch, props.filename]
+    [dispatch]
   );
   return (
     <List

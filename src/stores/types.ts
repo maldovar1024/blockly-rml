@@ -67,10 +67,11 @@ export interface ResultStore {
 
 /** 传递给 BlocklyEditor 的命令参数 */
 export interface CreateBlockPayload {
-  filename: string;
+  /** 宾语映射的 `reference` 的值 */
   reference: string;
 }
 
 export interface EditorCommandStore extends CreateBlockPayload {
+  /** 用于区分不同的命令 */
   id: string;
 }

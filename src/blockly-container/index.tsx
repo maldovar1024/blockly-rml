@@ -3,13 +3,23 @@ import { Component, createRef, CSSProperties } from 'react';
 import defineBlock, { BlockSvgInterface } from './define-block';
 import './msg-zh-hans';
 import {
+  BlockMenuItem,
   CustomMenuOptions,
   ExtensionRegisterType,
   RegistryType,
   WorkspaceChangeCallback,
+  WorkspaceMenuItem,
 } from './types';
 
 export type { BlockSvgInterface } from './define-block';
+export type {
+  BlockMenuItem,
+  CustomMenuOptions,
+  ExtensionRegisterType,
+  RegistryType,
+  WorkspaceChangeCallback,
+  WorkspaceMenuItem,
+};
 
 export interface BlocklyContainerProps {
   /** 注入 Blockly 时的配置，只在初始化时生效 */

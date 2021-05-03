@@ -1,5 +1,4 @@
-import BlocklyContainer from '@/blockly-container';
-import { WorkspaceChangeCallback } from '@/blockly-container/types';
+import BlocklyContainer, { WorkspaceChangeCallback } from '@/blockly-container';
 import store, { connect, setMappingCode } from '@/stores';
 import { Filetype } from '@/stores/types';
 import { BlocklyOptions, BlockSvg, Events } from 'blockly';

@@ -1,4 +1,4 @@
-import { CustomMenuOptions } from '@/blockly-container/types';
+import { CustomMenuOptions } from '@/blockly-container';
 import { downloadFile, uploadAndReadTextFile } from '@/utils';
 import { message } from 'antd';
 import { Xml } from 'blockly';

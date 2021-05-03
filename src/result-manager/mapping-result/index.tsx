@@ -6,7 +6,7 @@ import { CaretRightOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Button, Table } from 'antd';
 import { Quad } from 'n3';
 import { FC, useCallback } from 'react';
-import './mapping-result.less';
+import './index.less';
 
 interface RDFValue {
   /** 完整的 uri */

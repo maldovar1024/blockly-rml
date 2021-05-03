@@ -5,7 +5,7 @@ import { Button } from 'antd';
 import { FC, useEffect, useRef } from 'react';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import turtle from 'react-syntax-highlighter/dist/esm/languages/prism/turtle';
-import './mapping-code.less';
+import './index.less';
 import './syntax-highlight.less';
 
 SyntaxHighlighter.registerLanguage('turtle', turtle);

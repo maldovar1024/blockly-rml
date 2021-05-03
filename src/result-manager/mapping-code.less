@@ -1,0 +1,28 @@
+.results {
+  .mapping-code {
+    height: 100%;
+    line-height: 1.5;
+  }
+
+  .line-numbers {
+    display: none;
+    position: absolute;
+    height: 100%;
+    transform: translate(-100%, -1px);
+    user-select: none;
+    overflow: hidden;
+    white-space: pre;
+    text-align: right;
+    padding-right: 0.25em;
+    line-height: 1.5;
+    z-index: 100;
+    background-color: white;
+    border: gray 1px solid;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+  }
+
+  &:hover .line-numbers {
+    display: inline-block;
+  }
+}

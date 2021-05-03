@@ -8,32 +8,36 @@ import { Quad } from 'n3';
 import { FC, useCallback } from 'react';
 import './mapping-result.less';
 
-interface RDFViewerProps {
-  quads: Quad[];
+interface RDFValue {
+  /** 完整的 uri */
+  uri: string;
+  /** uri 的简写 */
+  abbr: string;
 }
 
-type RDFValue = [value: string, abbr: string];
+/**
+ * 拆分出 URI 最后一个 `/` 或 `#` 后的部分
+ */
+function makeRDFValue(uri: string): RDFValue {
+  for (let i = uri.length - 1; i >= 0; i--) {
+    if (uri[i] === '/' || uri[i] === '#') {
+      return {
+        uri,
+        abbr: uri.slice(i + 1),
+      };
+    }
+  }
+  return {
+    uri,
+    abbr: uri,
+  };
+}
 
 interface RDFTripleData {
   key: number;
   subject: RDFValue;
   predicate: RDFValue;
   object: RDFValue;
-}
-
-const { Column } = Table;
-
-/**
- * 拆分出 URI 最后一个 `/` 或 `#` 后的部分
- * @returns [完整的 `uri`, 拆分出的部分]
- */
-function makeRDFValue(uri: string): RDFValue {
-  for (let i = uri.length - 1; i >= 0; i--) {
-    if (uri[i] === '/' || uri[i] === '#') {
-      return [uri, uri.slice(i + 1)];
-    }
-  }
-  return [uri, uri];
 }
 
 /** 将 Quad 数据转换为表格需要的格式 */
@@ -43,9 +47,13 @@ function rdfTripleProcessor(quad: Quad, idx: number): RDFTripleData {
 
   let object: RDFValue;
   if (quad.object.termType === 'Literal') {
+    // 字面值按 `值^^类型` 的格式表示
     const termType = makeRDFValue(quad.object.datatype.value);
     const { value } = quad.object;
-    object = [`${value}^^${termType[0]}`, `${value}^^${termType[1]}`];
+    object = {
+      uri: `${value}^^${termType.uri}`,
+      abbr: `${value}^^${termType.abbr}`,
+    };
   } else {
     object = makeRDFValue(quad.object.value);
   }
@@ -58,11 +66,21 @@ function rdfTripleProcessor(quad: Quad, idx: number): RDFTripleData {
 }
 
 function renderColumn(value: RDFValue) {
-  return <span title={value[0]}>{value[1]}</span>;
+  return <span title={value.uri}>{value.abbr}</span>;
 }
 
+interface RDFViewerProps {
+  /** 四元组的数组，`graph` 属性不会被处理 */
+  quads: Quad[];
+}
+
+const { Column } = Table;
+
+/**
+ * 以表格的形式展示三元组
+ */
 const RDFViewer: FC<RDFViewerProps> = ({ quads }) => {
-  const data = quads.map<RDFTripleData>(rdfTripleProcessor);
+  const data = quads.map(rdfTripleProcessor);
 
   return (
     <Table<RDFTripleData>
@@ -94,6 +112,9 @@ const RDFViewer: FC<RDFViewerProps> = ({ quads }) => {
   );
 };
 
+/**
+ * 展示映射结果的组件
+ */
 const MappingResult: FC = () => {
   const mappingResult = useAppSelector(store => store.results.mappingResult);
 
@@ -109,6 +130,7 @@ const MappingResult: FC = () => {
       content = <RDFViewer quads={mappingResult.result} />;
       break;
     default:
+      // failed
       content = mappingResult.message;
       break;
   }

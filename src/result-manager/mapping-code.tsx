@@ -1,9 +1,11 @@
-/** 展示生成的映射代码的组件 */
 import { useAppSelector } from '@/stores';
 import { downloadFile } from '@/utils';
 import { Button } from 'antd';
 import { FC } from 'react';
 
+/**
+ * 展示映射代码的组件
+ */
 const MappingCode: FC = () => {
   const code = useAppSelector(store => store.results.code);
   const handleClick = () => {

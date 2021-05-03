@@ -9,8 +9,13 @@ export interface CSVViewerProps {
   structure: CSVSource['structure'];
 }
 
+/**
+ * 展示 CSV 文件内容的组件
+ */
 const CSVViewer: FC<CSVViewerProps> = props => {
   const dispatch = useAppDispatch();
+
+  // 点击列名时自动添加相应的`谓语-宾语映射`
   const handleClick = useCallback<MouseEventHandler<HTMLDivElement>>(
     evt => {
       const item = evt.target as HTMLDivElement;

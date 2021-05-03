@@ -7,6 +7,9 @@ export interface JSONViewerProps {
   structure: JSONSource['structure'];
 }
 
+/**
+ * 展示 JSON 文件内容的组件
+ */
 const JSONViewer: FC<JSONViewerProps> = props => {
   return (
     <ReactJson

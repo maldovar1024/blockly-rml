@@ -24,6 +24,7 @@ enum DuplicateFileCheck {
 }
 
 interface SourceManagerState {
+  /** 当前活动标签页的 `key` */
   activeKey?: string;
 }
 
@@ -66,6 +67,7 @@ class SourceManager extends Component<SourceManagerProps, SourceManagerState> {
     reader.readAsText(file);
   };
 
+  /** 添加或关闭标签页的回调函数 */
   private onEdit: TabEditEvent = async (target, action) => {
     if (action === 'add') {
       const file = await uploadFile(mimeTypeString);

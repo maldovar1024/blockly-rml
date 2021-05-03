@@ -39,14 +39,17 @@ class RMLGenerator extends Generator {
     return super.workspaceToCode(workspace);
   }
 
+  /** 生成带默认优先级的代码 */
   valueToCode(block: Block, name: string): string {
     return super.valueToCode(block, name, RMLGenerator.PRECEDENCE);
   }
 
+  /** 用默认优先级生成“表达式” */
   private expression(code: string): ReturnType<ExpressionGenerator> {
     return [code, RMLGenerator.PRECEDENCE];
   }
 
+  /** 使用默认的缩进方式缩进代码 */
   private indentLines(text: string): string {
     return this.prefixLines(text, this.indent);
   }
@@ -67,6 +70,7 @@ class RMLGenerator extends Generator {
     return `@prefix ${prefix}: <${fullValue}>.\n`;
   };
 
+  /** 生成一个 `@base` 前缀 */
   base_prefix: StatementGenerator = block => {
     const { uriValue } = names.base_prefix;
     const uri = block.getFieldValue(uriValue);
@@ -204,6 +208,7 @@ class RMLGenerator extends Generator {
     );
   };
 
+  /** 不同种类的语句到分隔符的映射 */
   private static delimiterMap: Record<string, string | undefined> = {
     prefix: '',
     base_prefix: '',

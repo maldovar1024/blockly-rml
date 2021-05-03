@@ -43,6 +43,10 @@ const style: CSSProperties = {
   userSelect: 'none',
 };
 
+/**
+ * Blockly 的包装 \
+ * 所有的 Blockly 配置都只会在组件挂载时执行，后续更改无效
+ */
 class BlocklyContainer extends Component<BlocklyContainerProps> {
   private container = createRef<HTMLDivElement>();
   private _mainWorkspace!: WorkspaceSvg;
@@ -96,12 +100,17 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     );
   }
 
+  /** 将工作区导出成 XML 字符串 */
   exportBlocks() {
     const { Xml } = Blockly;
     const xml = Xml.workspaceToDom(this._mainWorkspace);
     return Xml.domToPrettyText(xml);
   }
 
+  /**
+   * 用 XML 字符串的内容替换工作区的块
+   * @returns 如果无法解析字符串则返回错误信息
+   */
   importBlocks(xmlText: string): Error | undefined {
     const { Xml } = Blockly;
     try {
@@ -112,6 +121,7 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     }
   }
 
+  /** 统一注册自定义右键菜单项 */
   private registerCustomMenuOptions() {
     const { customMenuOptions } = this.props;
     if (!customMenuOptions) {

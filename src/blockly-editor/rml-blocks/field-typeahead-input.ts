@@ -10,9 +10,13 @@ export interface TypeaheadGenerator {
   (block: BlockSvg): string[];
 }
 
+/**
+ * 默认文本输入域的扩展，支持自动补全功能
+ */
 class FieldTypeaheadInput extends FieldTextInput {
   static readonly fieldName = 'field-typeahead-input';
 
+  /** 基类定义中没有，但运行时动态生成的属性 */
   isBeingEdited_!: boolean;
 
   constructor(typeaheadGenerator: TypeaheadGenerator);
@@ -32,12 +36,14 @@ class FieldTypeaheadInput extends FieldTextInput {
     }
   }
 
+  /** 自动补全内容的生成器 */
   private typeaheadGen_: TypeaheadGenerator = () => [];
 
   setTypeaheadGenerator(generator: TypeaheadGenerator) {
     this.typeaheadGen_ = generator;
   }
 
+  /** 展示编辑框 */
   showInlineEditor_(quietInput: boolean) {
     WidgetDiv.show(this, this.sourceBlock_.RTL, this.widgetDispose_.bind(this));
     this.htmlInput_ = this.widgetCreate_();
@@ -48,6 +54,7 @@ class FieldTypeaheadInput extends FieldTextInput {
       (this.htmlInput_ as HTMLInputElement).select();
     }
 
+    // 创建自动补全
     const datalist = document.createElement('datalist');
     const typeaheadValues = this.typeaheadGen_(<BlockSvg>this.sourceBlock_).map(
       value => {

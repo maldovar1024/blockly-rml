@@ -5,6 +5,7 @@ import { Xml } from 'blockly';
 import initialWorkspace from './initial-workspace.xml';
 import { createBlock, names } from './rml-blocks';
 
+/** 不可折叠的块的类型 */
 const unCollapsibleBlock = new Set<string>([
   names.triple_maps.name,
   names.prefix.name,
@@ -13,6 +14,7 @@ const unCollapsibleBlock = new Set<string>([
 
 const customMenuOptions: CustomMenuOptions = {
   workspaceMenuItems: [
+    // 添加一个完整的三元组映射
     {
       displayText: '添加三元组映射',
       preconditionFn() {
@@ -83,6 +85,7 @@ const customMenuOptions: CustomMenuOptions = {
       id: 'add_triple_map',
       weight: 100,
     },
+    // 将工作区重置到初始状态
     {
       displayText: '重置工作区',
       preconditionFn() {
@@ -95,6 +98,7 @@ const customMenuOptions: CustomMenuOptions = {
       id: 'reset_workspace',
       weight: 100,
     },
+    // 将工作区的内容导出到 XML 文件
     {
       displayText: '导出',
       preconditionFn() {
@@ -108,6 +112,7 @@ const customMenuOptions: CustomMenuOptions = {
       id: 'export_workspace',
       weight: 100,
     },
+    // 从 XML 文件导入到工作区
     {
       displayText: '导入',
       preconditionFn() {
@@ -135,6 +140,7 @@ const customMenuOptions: CustomMenuOptions = {
     },
   ],
   blockMenuItems: [
+    // 自定义的 展开/折叠 块
     {
       displayText({ block }) {
         return block.isCollapsed() ? '展开块' : '折叠块';

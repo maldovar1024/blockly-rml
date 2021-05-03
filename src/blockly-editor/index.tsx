@@ -17,6 +17,11 @@ import {
 import RMLGenerator from './rml-generator';
 import toolbox from './toolbox.xml';
 
+/**
+ * 根据 `LogicalSourceBlock` 的选项筛选出相符的源文件名
+ * @param block `LogicalSourceBlock`
+ * @returns 筛选出的文件名组成的数组，不包括文件扩展名
+ */
 function getFilenames(block: BlockSvg) {
   const filetype = block.getFieldValue(
     names.logical_source.filetypeDrop
@@ -43,6 +48,10 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     }
   }
 
+  /**
+   * 根据 `props` 中的 `newBlockParam`，创建一个新的`谓语-宾语映射`
+   * 并将它放在顶层块的正下方
+   */
   private createPredicateObjectMap() {
     const editor = this.ref.current;
     if (!editor) {
@@ -78,6 +87,7 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     }
   }
 
+  /** 注入 Blockly 的配置 */
   private blocklyOptions: BlocklyOptions = {
     collapse: true,
     move: {
@@ -112,14 +122,16 @@ class BlocklyEditor extends Component<BlocklyEditorProps> {
     'expandWorkspace',
   ];
 
-  private onWorkspaceChange: WorkspaceChangeCallback = evt => {
+  /** 生成代码的回调函数 */
+  private generateCode: WorkspaceChangeCallback = evt => {
     this.props.setMappingCode(
       this.rmlGenerator.workspaceToCode(evt.getEventWorkspace_())
     );
   };
 
-  private workspaceChangeCallbacks = [
-    this.onWorkspaceChange,
+  /** 工作区变化时的回调函数 */
+  private workspaceChangeCallbacks: WorkspaceChangeCallback[] = [
+    this.generateCode,
     Events.disableOrphans,
   ];
 

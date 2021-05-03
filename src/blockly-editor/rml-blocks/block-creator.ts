@@ -12,6 +12,12 @@ export interface BlockShape {
   statements?: Record<string, BlockShape>;
 }
 
+/**
+ * 根据块的描述在工作区中创建一个新的块
+ * @param workspace 要创建块的工作区
+ * @param block 块的描述
+ * @returns 创建的块
+ */
 export default function createBlock(
   workspace: WorkspaceSvg,
   block: BlockShape

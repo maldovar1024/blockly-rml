@@ -3,7 +3,12 @@ import { downloadFile } from '@/utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { Button } from 'antd';
 import { FC, useEffect, useRef } from 'react';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import turtle from 'react-syntax-highlighter/dist/esm/languages/prism/turtle';
 import './mapping-code.less';
+import './syntax-highlight.less';
+
+SyntaxHighlighter.registerLanguage('turtle', turtle);
 
 /** 生成代码行号 */
 const lineNumbersSelector = createSelector<RootStore, string, string>(
@@ -62,9 +67,9 @@ const MappingCode: FC = () => {
       <div className="line-numbers" ref={lineNumberRef}>
         {lineNumbers}
       </div>
-      <pre className="mapping-code">
-        <code>{code}</code>
-      </pre>
+      <SyntaxHighlighter language="turtle" useInlineStyles={false}>
+        {code}
+      </SyntaxHighlighter>
     </>
   );
 };

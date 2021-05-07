@@ -4,4 +4,23 @@
 
   display: grid;
   grid-template-columns: 17% auto 25%;
+
+  .source-controller {
+    position: fixed;
+    z-index: 21;
+    bottom: 0;
+    span {
+      transition: transform 0.3s;
+    }
+  }
+
+  &.collapsed {
+    grid-template-columns: 0 auto 25%;
+
+    .source-controller {
+      span {
+        transform: rotateY(180deg);
+      }
+    }
+  }
 }

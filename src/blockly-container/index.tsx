@@ -50,6 +50,9 @@ const style: CSSProperties = {
 class BlocklyContainer extends Component<BlocklyContainerProps> {
   private container = createRef<HTMLDivElement>();
   private _mainWorkspace!: WorkspaceSvg;
+  private resizeObserver = new ResizeObserver(() => {
+    Blockly.svgResize(this._mainWorkspace);
+  });
 
   get mainWorkspace() {
     return this._mainWorkspace;
@@ -98,6 +101,8 @@ class BlocklyContainer extends Component<BlocklyContainerProps> {
     workspaceChangeCallbacks?.forEach(callback =>
       this._mainWorkspace.addChangeListener(callback)
     );
+
+    this.resizeObserver.observe(blocklyDiv);
   }
 
   /** 将工作区导出成 XML 字符串 */

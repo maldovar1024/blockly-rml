@@ -1,5 +1,21 @@
+#root {
+  .ant-result {
+    display: none;
+  }
+
+  @media (max-width: 960px) {
+    .app {
+      display: none;
+    }
+    .ant-result {
+      display: block;
+    }
+  }
+}
+
 .app {
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
 
   display: grid;

@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, Result } from 'antd';
 import { FC } from 'react';
 import { useToggle } from 'react-use';
 import './app.less';
@@ -11,16 +11,19 @@ const App: FC = () => {
   const [collapsed, toggle] = useToggle(false);
 
   return (
-    <main className={`app${collapsed ? ' collapsed' : ''}`}>
-      <Button
-        className="source-controller"
-        onClick={toggle}
-        icon={<ArrowLeftOutlined />}
-      />
-      <SourceManager />
-      <BlocklyEditor />
-      <MappingResult />
-    </main>
+    <>
+      <main className={`app${collapsed ? ' collapsed' : ''}`}>
+        <Button
+          className="source-controller"
+          onClick={toggle}
+          icon={<ArrowLeftOutlined />}
+        />
+        <SourceManager />
+        <BlocklyEditor />
+        <MappingResult />
+      </main>
+      <Result status="warning" title="窗口过窄，无法正常显示" />
+    </>
   );
 };
 

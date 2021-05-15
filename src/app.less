@@ -1,14 +1,17 @@
 #root {
   .ant-result {
     display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: aliceblue;
+    top: 0;
   }
 
   @media (max-width: 960px) {
-    .app {
-      display: none;
-    }
     .ant-result {
       display: block;
+      z-index: 100;
     }
   }
 }

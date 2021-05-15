@@ -22,7 +22,11 @@ const App: FC = () => {
         <BlocklyEditor />
         <MappingResult />
       </main>
-      <Result status="warning" title="窗口过窄，无法正常显示" />
+      <Result
+        status="warning"
+        title="窗口过窄，无法正常显示"
+        extra="请提高窗口宽度或换用大屏显示器"
+      />
     </>
   );
 };
